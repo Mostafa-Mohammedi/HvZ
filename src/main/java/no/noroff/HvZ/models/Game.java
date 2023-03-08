@@ -17,4 +17,8 @@ public class Game {
 
     @Column(nullable = false)
     private String description;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "game")
+    private Player player;
+
 }
