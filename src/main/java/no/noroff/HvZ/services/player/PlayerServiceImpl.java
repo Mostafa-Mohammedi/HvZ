@@ -17,22 +17,23 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player add(Player entity) {
-        return null;
+        return playerRepository.save(entity);
     }
 
     @Override
     public Player update(Player entity) {
-        return null;
+        return playerRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
+        playerRepository.deleteById(id);
 
     }
 
     @Override
     public boolean exists(Integer id) {
-        return false;
+        return playerRepository.existsById(id);
     }
 
     @Override

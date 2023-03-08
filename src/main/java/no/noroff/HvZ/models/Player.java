@@ -22,8 +22,12 @@ public class Player {
 
     private String biteCode;
 
-    @JsonIgnore
-    @ManyToOne()
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.*;
+
 
 import java.util.Set;
 
@@ -23,6 +25,9 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     private Set<Player> players;
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private List<Mission> missionList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "game")
