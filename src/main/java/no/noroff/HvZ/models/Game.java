@@ -21,6 +21,6 @@ public class Game {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    private ArrayList<Player> player;
+    private ArrayList<Player> players;
 
 }
