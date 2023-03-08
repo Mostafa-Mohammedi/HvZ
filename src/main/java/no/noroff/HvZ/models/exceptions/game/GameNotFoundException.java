@@ -1,6 +1,6 @@
 package no.noroff.HvZ.models.exceptions.game;
 
-import noroff.accelerate.hvz.models.exceptions.EntityNotFoundException;
+import no.noroff.HvZ.models.exceptions.EntityNotFoundException;
 
 public class GameNotFoundException extends EntityNotFoundException {
     public GameNotFoundException(int id) {
