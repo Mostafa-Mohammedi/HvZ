@@ -4,6 +4,8 @@ package no.noroff.HvZ.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
 @Entity
 public class Player {
@@ -24,5 +26,8 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @OneToMany(mappedBy = "player")
+    private Set<Chat> chat;
 
 }

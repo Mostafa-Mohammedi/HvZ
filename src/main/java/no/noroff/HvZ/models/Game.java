@@ -21,9 +21,13 @@ public class Game {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
-    private ArrayList<Player> player;
+    private List<Player> player;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private List<Mission> missionList;
+
+    @OneToOne(mappedBy = "game", fetch = FetchType.LAZY)
+    private Chat chat;
+
 
 }
