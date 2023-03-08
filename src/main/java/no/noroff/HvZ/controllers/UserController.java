@@ -9,10 +9,7 @@ import no.noroff.HvZ.mappers.UserMapper;
 import no.noroff.HvZ.models.dto.UserDTO;
 import no.noroff.HvZ.services.User.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/users")
@@ -26,6 +23,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/getAllUser")
     @Operation(summary = "Gets all the movies in the database")
     @ApiResponses(value = {
@@ -45,6 +43,7 @@ public class UserController {
         return ResponseEntity.ok(userMapper.usertoUserDTOList(userService.findAll()));
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("{id}")
     @Operation(summary = "successful fetched user by id")
     @ApiResponses(value = {

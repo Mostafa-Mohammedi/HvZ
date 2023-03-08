@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,5 +22,8 @@ public class Game {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "game")
     private Player player;
+
+    @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
+    private List<Mission> missionList;
 
 }
