@@ -1,34 +1,30 @@
 package no.noroff.HvZ.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
-@Entity
+import java.util.Set;
+
 @Getter
 @Setter
-public class Player {
+@Entity
+public class Squad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private boolean isHuman;
-
-    private boolean isPatientZero;
-
-    private String biteCode;
+    @Column(nullable = false)
+    private String name;
 
     @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name = "game_id")
-    private Game game;
+    @OneToMany(mappedBy = "squad")
+    private Set<Player> players;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "squad_id")
-    private Squad squad;
+    @JoinColumn(name = "game_id", nullable = false)
+    private Game game;
+
 }

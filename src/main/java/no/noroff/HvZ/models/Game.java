@@ -1,8 +1,11 @@
 package no.noroff.HvZ.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,7 +21,10 @@ public class Game {
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "game")
-    private Player player;
+    @OneToMany(mappedBy = "game")
+    private Set<Player> players;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "game")
+    private Set<Squad> squads;
 }
