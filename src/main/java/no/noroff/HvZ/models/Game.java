@@ -23,13 +23,19 @@ public class Game {
     @Column(nullable = false)
     private String description;
 
+
     @OneToMany(mappedBy = "game")
     private Set<Player> players;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private List<Mission> missionList;
+    
+    @OneToOne(mappedBy = "game", fetch = FetchType.LAZY)
+    private Chat chat;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Squad> squads;
+
 }
