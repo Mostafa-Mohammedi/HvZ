@@ -3,8 +3,8 @@ package no.noroff.HvZ.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
+
 
 @Entity
 @Getter
@@ -20,8 +20,8 @@ public class Game {
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "game")
-    private Player player;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private ArrayList<Player> player;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private List<Mission> missionList;
