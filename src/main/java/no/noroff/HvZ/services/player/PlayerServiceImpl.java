@@ -3,9 +3,11 @@ package no.noroff.HvZ.services.player;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.exceptions.player.PlayerNotFoundException;
 import no.noroff.HvZ.repositories.PlayerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class PlayerServiceImpl implements PlayerService {
     private final PlayerRepository playerRepository;
 
