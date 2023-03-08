@@ -17,11 +17,9 @@ public class Player {
 
     private String biteCode;
 
-   /*
-   @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    */
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
