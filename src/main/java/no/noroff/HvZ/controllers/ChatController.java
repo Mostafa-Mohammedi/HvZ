@@ -1,15 +1,14 @@
 package no.noroff.HvZ.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import no.noroff.HvZ.mappers.PlayerMapper;
+import no.noroff.HvZ.mappers.Chatmapper;
+import no.noroff.HvZ.models.dto.ChatDTO;
 import no.noroff.HvZ.models.dto.GameDTO;
-import no.noroff.HvZ.models.dto.PlayerDTO;
-import no.noroff.HvZ.services.player.PlayerService;
+import no.noroff.HvZ.services.chat.ChatService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +17,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/v1/players")
-public class PlayerController {
-    private final PlayerService playerService;
-    private final PlayerMapper playerMapper;
+@RequestMapping(path = "api/v1/Chat")
+public class ChatController {
 
-    public PlayerController(PlayerService playerService, PlayerMapper playerMapper) {
-        this.playerService = playerService;
-        this.playerMapper = playerMapper;
+    private ChatService chatService;
+    private Chatmapper chatMapper;
+
+    public ChatController(ChatService chatService, Chatmapper chatMapper) {
+        this.chatService = chatService;
+        this.chatMapper = chatMapper;
     }
 
-    @Operation(summary = "Gets player by ID")
+    @GetMapping()
+    @Operation(summary = "Get all chat")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = PlayerDTO.class))
+                                    schema = @Schema(implementation = ChatDTO.class))
                     }
             ),
             @ApiResponse(
@@ -45,25 +46,33 @@ public class PlayerController {
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-    @GetMapping("{id}")
-    public ResponseEntity findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findById(id)));
+
+    public ResponseEntity getAll(){
+        return  ResponseEntity.ok(chatMapper.chatToChatDTOList(chatService.findAll()));
     }
 
-    @Operation(summary = "Gets all players")
+
+
+
+    @GetMapping("{id}")
+    @Operation(summary = "Gets Chat by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
+                                    schema = @Schema(implementation = ChatDTO.class))
                     }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-
-    @GetMapping
-    public ResponseEntity findAll() {
-        return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findAll()));
+    public ResponseEntity findById(@PathVariable Integer id) {
+        return  ResponseEntity.ok(chatMapper.chatToChatDTO(chatService.findById(id)));
     }
 }
