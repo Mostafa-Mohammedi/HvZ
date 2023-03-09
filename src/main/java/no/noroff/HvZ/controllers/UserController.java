@@ -13,6 +13,7 @@ import no.noroff.HvZ.services.User.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(path = "api/v1/users")
 public class UserController {
