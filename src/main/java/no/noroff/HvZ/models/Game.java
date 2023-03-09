@@ -24,6 +24,7 @@ public class Game {
     private String description;
 
 
+
     @OneToMany(mappedBy = "game")
     private Set<Player> players;
 
