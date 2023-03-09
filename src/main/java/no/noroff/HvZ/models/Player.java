@@ -24,6 +24,7 @@ public class Player {
 
     private String biteCode;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

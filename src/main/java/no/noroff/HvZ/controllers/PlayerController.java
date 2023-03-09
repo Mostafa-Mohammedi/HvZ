@@ -7,7 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.PlayerMapper;
-import no.noroff.HvZ.models.dto.PlayerDTO;
+import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.dto.player.PlayerDTO;
+import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
 import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
 
 
 @CrossOrigin("*")
@@ -67,6 +71,31 @@ public class PlayerController {
     @GetMapping
     public ResponseEntity findAll() {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findAll()));
+    }
+
+    @Operation(summary = "Gets all players")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = Player.class)))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @PostMapping
+
+    public ResponseEntity add(@RequestBody PlayerPostDTO playerDTO){
+        Player player = playerService.add(playerMapper.playerPostDtoToPlayer(playerDTO));
+        URI location = URI.create("api/v1/players/" + player.getId());
+        return ResponseEntity.created(location).build();
     }
 
 }

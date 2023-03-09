@@ -32,6 +32,7 @@ public class Game {
     private String status;
     private Date date;
 
+
     @Column(nullable = false)
     private int maxPlayers;
 
