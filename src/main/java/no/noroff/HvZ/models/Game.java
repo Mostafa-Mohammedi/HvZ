@@ -24,7 +24,7 @@ public class Game {
     private String description;
 
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Player> players;
 
