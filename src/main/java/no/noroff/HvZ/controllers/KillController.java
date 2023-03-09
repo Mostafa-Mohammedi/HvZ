@@ -10,6 +10,7 @@ import no.noroff.HvZ.mappers.KillMapper;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.models.dto.kill.KillPostDTO;
+import no.noroff.HvZ.models.dto.kill.KillUpdateDTO;
 import no.noroff.HvZ.services.kill.KillService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -117,6 +118,34 @@ public class KillController {
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable Integer id){
         killService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Updates a kill by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Kill.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @PutMapping("{id}")
+    public ResponseEntity update(@RequestBody KillUpdateDTO killDTO, @PathVariable Integer id){
+        if (id != killDTO.getId()){
+            System.out.println("for some weird reason, den kommer her :(((((");
+            return ResponseEntity.badRequest().build();
+        }
+        killService.update(killMapper.killUpdateDtoToKill(killDTO));
+
         return ResponseEntity.noContent().build();
     }
 }
