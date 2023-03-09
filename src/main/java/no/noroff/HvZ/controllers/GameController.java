@@ -78,8 +78,6 @@ public class GameController {
     @PostMapping
     public ResponseEntity add(@RequestBody GamePostDTO entity) throws URISyntaxException {
         Game game = gameMapper.gamePostDTOtoGame(entity);
-        System.out.println("PRINTER");
-        System.out.println(game.getId() + " " + game.getTitle() + " " + game.getGameType() + " " + game.getDate());
         gameService.add(game);
         URI uri =  new URI("api/v1/games/" + game.getId());
         return ResponseEntity.created(uri).build();
