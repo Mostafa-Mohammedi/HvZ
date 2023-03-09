@@ -22,7 +22,8 @@ public class KillServiceImpl implements KillService{
 
     @Override
     public Kill update(Kill entity) {
-        return null;
+
+        return killRepository.save(entity);
     }
 
     @Override
