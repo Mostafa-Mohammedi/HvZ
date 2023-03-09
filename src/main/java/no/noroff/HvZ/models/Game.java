@@ -44,8 +44,13 @@ public class Game {
 
     @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
     private List<Mission> missionList;
+    
+    @OneToOne(mappedBy = "game", fetch = FetchType.LAZY)
+    private Chat chat;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Squad> squads;
+
 }

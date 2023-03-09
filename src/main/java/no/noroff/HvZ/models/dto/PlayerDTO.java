@@ -14,4 +14,8 @@ public class PlayerDTO {
     private boolean isPatientZero;
     private String biteCode;
     private Squad squad;
+    //private Integer game;
+    //private Integer player;
+
+
 }

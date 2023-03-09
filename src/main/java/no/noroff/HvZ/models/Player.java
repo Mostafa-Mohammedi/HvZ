@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Data
 @Entity
 @Getter
@@ -29,6 +31,9 @@ public class Player {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
+
+    @OneToMany(mappedBy = "player")
+    private Set<Chat> chat;
 
     @JsonIgnore
     @ManyToOne
