@@ -3,3 +3,4 @@ INSERT INTO game (title, description) VALUES ('Very Nice', 'The Zombies are not 
 INSERT INTO player (is_human, is_patient_zero, bite_code) VALUES (true, true, 'something');
 INSERT INTO users (first_name, last_name) VALUES ('AK', '47');
 Insert into mission (description, end_time, is_human_visible, is_zombie_visible, name, start_time) values('warzone', '2022', false, true, 'testing war zone', '2021' );
+INSERT INTO kill (lat, lng, story, time_of_death) VALUES (1.222, 2.2222, 'livet suger', '1234')
