@@ -10,6 +10,7 @@ import no.noroff.HvZ.mappers.GameMapper;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.dto.game.GameDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
+import no.noroff.HvZ.models.dto.game.GamePutDTO;
 import no.noroff.HvZ.services.game.GameService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -82,4 +83,15 @@ public class GameController {
         URI uri =  new URI("api/v1/games/" + game.getId());
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity update(@RequestBody GamePutDTO entity, @PathVariable Integer id) {
+        if (id != entity.getId())
+            return ResponseEntity.badRequest().build();
+        gameService.update(
+                gameMapper.gamePutDTOtoGame(entity)
+        );
+        return ResponseEntity.noContent().build();
+    }
+
 }
