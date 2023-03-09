@@ -1,10 +1,8 @@
 package no.noroff.HvZ.services.User;
-
 import no.noroff.HvZ.models.User;
 import no.noroff.HvZ.models.exceptions.user.UserNotFoundException;
 import no.noroff.HvZ.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 
 @Service
