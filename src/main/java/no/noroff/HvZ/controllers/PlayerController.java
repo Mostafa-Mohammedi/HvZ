@@ -98,6 +98,34 @@ public class PlayerController {
         return ResponseEntity.created(location).build();
     }
 
+    @Operation(summary = "Updates a player")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = Player.class)))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @PutMapping("{id}")
+    public ResponseEntity update(@RequestBody PlayerUpdateDTO playerDTO, @PathVariable Integer id){
+
+        if (id != playerDTO.getId()){
+            System.out.println(playerDTO.getId());
+            return ResponseEntity.badRequest().build();
+        }
+        playerService.update(playerMapper.playerUpdateDtoToPlayer(playerDTO));
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
 
