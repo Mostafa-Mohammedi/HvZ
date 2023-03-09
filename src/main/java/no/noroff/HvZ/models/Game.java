@@ -30,8 +30,8 @@ public class Game {
     //In progress, completed, registration
     @Column(nullable = false)
     private String status;
-    private String date;
 
+    private String date;
 
     @Column(nullable = false)
     private int maxPlayers;
