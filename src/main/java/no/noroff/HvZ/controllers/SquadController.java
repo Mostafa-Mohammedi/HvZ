@@ -6,9 +6,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import no.noroff.HvZ.mappers.GameMapper;
+import no.noroff.HvZ.mappers.SquadMapper;
 import no.noroff.HvZ.models.dto.GameDTO;
-import no.noroff.HvZ.services.game.GameService;
+import no.noroff.HvZ.models.dto.SquadDTO;
+import no.noroff.HvZ.services.squad.SquadService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,27 +18,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "api/v1/games")
-public class GameController {
-    private final GameService gameService;
-    private final GameMapper gameMapper;
+@RequestMapping(path = "api/v1/squads")
+public class SquadController {
+    private final SquadService squadService;
+    private final SquadMapper squadMapper;
 
-    public GameController(GameService gameService, GameMapper gameMapper) {
-        this.gameService = gameService;
-        this.gameMapper = gameMapper;
+    public SquadController(SquadService squadService, SquadMapper squadMapper) {
+        this.squadService = squadService;
+        this.squadMapper = squadMapper;
     }
 
-    @Operation(summary = "Gets game by ID")
+    @Operation(summary = "Gets squad by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = GameDTO.class))
+                                    schema = @Schema(implementation = SquadDTO.class))
                     }
             ),
             @ApiResponse(
@@ -50,23 +50,24 @@ public class GameController {
 
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(gameMapper.gameToGameDTO(gameService.findById(id)));
+        return ResponseEntity.ok(squadMapper.squadToSquadDTO(squadService.findById(id)));
     }
 
-    @Operation(summary = "Gets all games")
+    @Operation(summary = "Gets all squads")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = GameDTO.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = SquadDTO.class)))
                     }
             )
     })
 
     @GetMapping
     public ResponseEntity findAll(){
-        return ResponseEntity.ok(gameMapper.gameToGameDTO(gameService.findAll()));
+        return ResponseEntity.ok(squadMapper.squadToSquadDTO(squadService.findAll()));
+
     }
 }
