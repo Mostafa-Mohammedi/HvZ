@@ -1,10 +1,14 @@
 package no.noroff.HvZ.services.game;
 
+import lombok.SneakyThrows;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
 import no.noroff.HvZ.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -19,12 +23,13 @@ public class GameServiceImpl implements GameService{
         this.gameRepository = gameRepository;
     }
 
+    @SneakyThrows
     @Override
     public Game add(Game entity) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date date = new Date();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
         entity.setStatus("registration");
-        entity.setDate(date);
+        entity.setDate(dtf.format(now));
         entity.setPlayerCount(0);
         return gameRepository.save(entity);
     }

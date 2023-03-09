@@ -30,7 +30,7 @@ public class Game {
     //In progress, completed, registration
     @Column(nullable = false)
     private String status;
-    private Date date;
+    private String date;
 
 
     @Column(nullable = false)
