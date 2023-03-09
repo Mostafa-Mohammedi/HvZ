@@ -17,17 +17,17 @@ public class SquadServiceImpl implements SquadService{
 
     @Override
     public Squad add(Squad entity) {
-        return null;
+        return squadRepository.save(entity);
     }
 
     @Override
     public Squad update(Squad entity) {
-        return null;
+        return squadRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        squadRepository.deleteById(id);
     }
 
     @Override
