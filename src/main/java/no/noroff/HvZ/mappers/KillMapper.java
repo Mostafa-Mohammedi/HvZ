@@ -1,7 +1,8 @@
 package no.noroff.HvZ.mappers;
 
 import no.noroff.HvZ.models.Kill;
-import no.noroff.HvZ.models.dto.KillDTO;
+import no.noroff.HvZ.models.dto.kill.KillDTO;
+import no.noroff.HvZ.models.dto.kill.KillPostDTO;
 import org.mapstruct.Mapper;
 
 import java.util.Collection;
@@ -10,4 +11,6 @@ import java.util.Collection;
 public interface KillMapper {
     KillDTO killMappedToKillDTO(Kill kill);
     Collection<KillDTO> killMappedToKillDTO(Collection<Kill> kill);
+
+    Kill killPostDtoToKill(KillPostDTO killPostDTO);
 }

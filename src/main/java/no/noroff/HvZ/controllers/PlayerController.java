@@ -126,7 +126,6 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
 
-
     @Operation(summary = "Deletes a player")
     @ApiResponses(value = {
             @ApiResponse(
@@ -151,5 +150,3 @@ public class PlayerController {
     }
 
 }
-
-
