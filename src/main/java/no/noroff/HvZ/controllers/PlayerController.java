@@ -10,6 +10,7 @@ import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.dto.player.PlayerDTO;
 import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
+import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
 import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +74,7 @@ public class PlayerController {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findAll()));
     }
 
-    @Operation(summary = "Gets all players")
+    @Operation(summary = "Adds a player")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -91,11 +92,13 @@ public class PlayerController {
             )
     })
     @PostMapping
-
     public ResponseEntity add(@RequestBody PlayerPostDTO playerDTO){
         Player player = playerService.add(playerMapper.playerPostDtoToPlayer(playerDTO));
         URI location = URI.create("api/v1/players/" + player.getId());
         return ResponseEntity.created(location).build();
     }
 
+
 }
+
+

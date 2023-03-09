@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.Chatmapper;
 import no.noroff.HvZ.models.dto.ChatDTO;
-import no.noroff.HvZ.models.dto.GameDTO;
 import no.noroff.HvZ.services.chat.ChatService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
