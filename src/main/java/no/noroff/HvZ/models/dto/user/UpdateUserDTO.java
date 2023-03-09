@@ -1,12 +1,11 @@
-package no.noroff.HvZ.models.dto;
+package no.noroff.HvZ.models.dto.user;
 
 import lombok.Data;
 
 @Data
-public class UserDTO {
-    private int userId;
+public class UpdateUserDTO {
+
     private String firstName;
     private String lastName;
-
 
 }
