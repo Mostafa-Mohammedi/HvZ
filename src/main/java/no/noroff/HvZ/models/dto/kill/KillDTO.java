@@ -1,4 +1,4 @@
-package no.noroff.HvZ.models.dto;
+package no.noroff.HvZ.models.dto.kill;
 
 import lombok.Getter;
 import lombok.Setter;
