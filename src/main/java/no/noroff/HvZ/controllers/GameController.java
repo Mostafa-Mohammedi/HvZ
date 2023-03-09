@@ -88,9 +88,15 @@ public class GameController {
     public ResponseEntity update(@RequestBody GamePutDTO entity, @PathVariable Integer id) {
         if (id != entity.getId())
             return ResponseEntity.badRequest().build();
+        String date = gameService.findById(id).getDate();
+        System.out.println(date);
         gameService.update(
                 gameMapper.gamePutDTOtoGame(entity)
+
         );
+        System.out.println(date);
+        gameService.findById(id).setDate(date);
+        System.out.println(gameService.findById(id).getDate());
         return ResponseEntity.noContent().build();
     }
 
