@@ -5,6 +5,10 @@ import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
 import no.noroff.HvZ.repositories.GameRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 @Service
@@ -17,17 +21,22 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public Game add(Game entity) {
-        return null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        entity.setStatus("registration");
+        entity.setDate(date);
+        entity.setPlayerCount(0);
+        return gameRepository.save(entity);
     }
 
     @Override
     public Game update(Game entity) {
-        return null;
+        return gameRepository.save(entity);
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        gameRepository.deleteById(id);
     }
 
     @Override

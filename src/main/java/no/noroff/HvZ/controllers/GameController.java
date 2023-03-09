@@ -7,14 +7,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.GameMapper;
-import no.noroff.HvZ.models.dto.GameDTO;
+import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.dto.game.GameDTO;
+import no.noroff.HvZ.models.dto.game.GamePostDTO;
 import no.noroff.HvZ.services.game.GameService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping(path = "api/v1/games")
@@ -65,5 +67,15 @@ public class GameController {
     @GetMapping
     public ResponseEntity findAll(){
         return ResponseEntity.ok(gameMapper.gameToGameDTO(gameService.findAll()));
+    }
+
+    @PostMapping
+    public ResponseEntity add(@RequestBody GamePostDTO entity) throws URISyntaxException {
+        Game game = gameMapper.gamePostDTOtoGame(entity);
+        System.out.println("PRINTER");
+        System.out.println(game.getId() + " " + game.getTitle() + " " + game.getGameType() + " " + game.getDate());
+        gameService.add(game);
+        URI uri =  new URI("api/v1/games/" + game.getId());
+        return ResponseEntity.created(uri).build();
     }
 }

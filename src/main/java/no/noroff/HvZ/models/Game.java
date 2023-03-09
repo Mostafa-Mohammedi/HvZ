@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
 import java.util.*;
 
 
@@ -21,8 +23,22 @@ public class Game {
     private String title;
 
     @Column(nullable = false)
+    private String gameType;
+    @Column(nullable = false)
     private String description;
 
+    //In progress, completed, registration
+    @Column(nullable = false)
+    private String status;
+    private Date date;
+
+    @Column(nullable = false)
+    private int maxPlayers;
+
+    @Column(nullable = false)
+    private int playerCount;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Player> players;
 

@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.PlayerMapper;
-import no.noroff.HvZ.models.dto.GameDTO;
 import no.noroff.HvZ.models.dto.PlayerDTO;
 import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
