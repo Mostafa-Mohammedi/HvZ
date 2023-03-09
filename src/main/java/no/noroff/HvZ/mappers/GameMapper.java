@@ -5,6 +5,7 @@ import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.dto.game.GameDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
+import no.noroff.HvZ.models.dto.game.GamePutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -19,6 +20,7 @@ public interface GameMapper {
     @Mapping(target = "players", source = "players", qualifiedByName = "playersToPlayersId")
     GameDTO gameToGameDTO(Game game);
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
+    Game gamePutDTOtoGame(GamePutDTO gamePutDTO);
     Collection<GameDTO> gameToGameDTO(Collection<Game> game);
 
     @Named(value = "squadsToSquadsId")
