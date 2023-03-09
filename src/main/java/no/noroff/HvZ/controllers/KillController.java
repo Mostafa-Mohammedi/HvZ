@@ -79,7 +79,7 @@ public class KillController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = KillDTO.class))
+                                    schema = @Schema(implementation = Kill.class))
                     }
             ),
             @ApiResponse(
@@ -94,5 +94,29 @@ public class KillController {
         Kill kill = killService.add(killMapper.killPostDtoToKill(killDTO));
         URI location = URI.create("api/v1/players/" + kill.getId());
         return ResponseEntity.created(location).build();
+    }
+
+
+    @Operation(summary = "Deletes a kill by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Kill.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Integer id){
+        killService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
