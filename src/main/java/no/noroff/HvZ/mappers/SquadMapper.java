@@ -1,9 +1,7 @@
 package no.noroff.HvZ.mappers;
 
-import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
-import no.noroff.HvZ.models.dto.GameDTO;
 import no.noroff.HvZ.models.dto.SquadDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
