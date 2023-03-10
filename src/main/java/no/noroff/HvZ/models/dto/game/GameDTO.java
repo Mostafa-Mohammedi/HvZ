@@ -19,4 +19,5 @@ public class GameDTO {
     private int playerCount;
     private Set<Integer> players;
     private Set<Integer> squads;
+    private Set<Integer> kills;
 }

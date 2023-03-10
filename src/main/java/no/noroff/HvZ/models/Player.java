@@ -22,6 +22,7 @@ public class Player {
 
     private boolean isPatientZero;
 
+    @Column(length = 50, nullable = false)
     private String biteCode;
 
     @JsonIgnore

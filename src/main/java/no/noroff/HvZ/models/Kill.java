@@ -1,9 +1,7 @@
 package no.noroff.HvZ.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -13,8 +11,14 @@ public class Kill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String time_of_death;
+    @Column(length = 50, nullable = false)
     private String story;
     private double lat;
     private double lng;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
 
 }

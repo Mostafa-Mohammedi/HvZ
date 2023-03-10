@@ -1,4 +1,4 @@
-package no.noroff.HvZ.models.dto;
+package no.noroff.HvZ.models.dto.mission;
 
 import lombok.Data;
 

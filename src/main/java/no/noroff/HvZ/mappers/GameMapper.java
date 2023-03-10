@@ -1,6 +1,7 @@
 package no.noroff.HvZ.mappers;
 
 import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.dto.game.GameDTO;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface GameMapper {
     @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
+    @Mapping(target = "kills", source = "kills", qualifiedByName = "killsToKillsId")
     @Mapping(target = "players", source = "players", qualifiedByName = "playersToPlayersId")
     GameDTO gameToGameDTO(Game game);
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
@@ -29,6 +31,15 @@ public interface GameMapper {
             return null;
         return value.stream()
                 .map(s -> s.getId())
+                .collect(Collectors.toSet());
+    }
+
+    @Named(value = "killsToKillsId")
+    default Set<Integer> map1(Set<Kill> value) {
+        if (value == null)
+            return null;
+        return value.stream()
+                .map(k -> k.getId())
                 .collect(Collectors.toSet());
     }
 

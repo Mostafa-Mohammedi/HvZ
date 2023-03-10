@@ -7,26 +7,32 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.KillMapper;
+import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.models.dto.kill.KillPostDTO;
 import no.noroff.HvZ.models.dto.kill.KillUpdateDTO;
+import no.noroff.HvZ.repositories.GameRepository;
 import no.noroff.HvZ.services.kill.KillService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Set;
 
 @RestController
-@RequestMapping(path = "api/v1/kill")
+@RequestMapping(path = "api/v1/kills")
 public class KillController {
     private KillService killService;
     private KillMapper killMapper;
+    private GameRepository gameRepository;
 
-    public KillController(KillService killService, KillMapper killMapper) {
+    public KillController(KillService killService, KillMapper killMapper, GameRepository gameRepository) {
         this.killService = killService;
         this.killMapper = killMapper;
+        this.gameRepository = gameRepository;
+
     }
 
     @Operation(summary = "Gets kill by ID")
@@ -141,7 +147,6 @@ public class KillController {
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody KillUpdateDTO killDTO, @PathVariable Integer id){
         if (id != killDTO.getId()){
-            System.out.println("for some weird reason, den kommer her :(((((");
             return ResponseEntity.badRequest().build();
         }
         killService.update(killMapper.killUpdateDtoToKill(killDTO));
