@@ -20,7 +20,6 @@ import java.util.Objects;
 @RestController
 @RequestMapping(path = "api/v1/squadMember")
 public class SquadMemberController {
-
     private SquadMemberService squadMemberService;
     private SquadMemberMapper squadMemberMapper;
 
@@ -106,5 +105,6 @@ public class SquadMemberController {
             return ResponseEntity.noContent().build();
         }
     }
+
 
 }

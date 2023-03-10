@@ -76,4 +76,5 @@ public class MissionController {
     public ResponseEntity findAll(){
         return ResponseEntity.ok(missionMapper.missionToMissionDTOList(missionService.findAll()));
     }
+
 }

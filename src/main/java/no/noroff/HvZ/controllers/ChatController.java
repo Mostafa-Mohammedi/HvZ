@@ -24,6 +24,7 @@ import java.net.URISyntaxException;
 @RequestMapping(path = "api/v1/chat")
 public class ChatController {
 
+
     private ChatService chatService;
     private Chatmapper chatMapper;
 
@@ -117,5 +118,6 @@ public class ChatController {
             return ResponseEntity.noContent().build();
         }
     }
+
 }
 
