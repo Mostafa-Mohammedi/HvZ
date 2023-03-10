@@ -40,4 +40,7 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "squad_id")
     private Squad squad;
+    @OneToOne(mappedBy = "player")
+    private SquadMember squadMember;
+
 }

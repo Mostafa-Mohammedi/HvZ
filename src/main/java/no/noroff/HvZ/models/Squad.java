@@ -27,4 +27,9 @@ public class Squad {
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
+    @OneToOne
+    @JoinColumn(name = "squadMember")
+    private SquadMember squadMember;
+
+
 }
