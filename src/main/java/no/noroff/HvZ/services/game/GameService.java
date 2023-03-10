@@ -3,6 +3,7 @@ package no.noroff.HvZ.services.game;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.services.CrudService;
 
 import java.util.Collection;
@@ -15,4 +16,7 @@ public interface GameService extends CrudService<Game, Integer> {
 
     Collection<Kill> getKills(Integer id);
     void updateKills(int gameId, int[] killIds);
+
+    Collection<Squad> getSquads(Integer id);
+    void updateSquads(int gameId, int[] squadIds);
 }
