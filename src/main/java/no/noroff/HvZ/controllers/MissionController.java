@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.MissionMapper;
-import no.noroff.HvZ.models.dto.MissionDTO;
+import no.noroff.HvZ.models.dto.mission.MissionDTO;
 import no.noroff.HvZ.services.mission.MissionService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;

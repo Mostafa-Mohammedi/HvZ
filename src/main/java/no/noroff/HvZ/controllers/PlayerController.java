@@ -148,5 +148,4 @@ public class PlayerController {
         playerService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }
