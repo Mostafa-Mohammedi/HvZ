@@ -15,8 +15,13 @@ public class PlayerDTO {
     private boolean isHuman;
     private boolean isPatientZero;
     private String biteCode;
+
+
     private Squad squad;
+
     private Integer user;
     private Integer game;
+
+
 
 }

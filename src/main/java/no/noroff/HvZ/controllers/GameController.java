@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/v1/games")
 public class GameController {
+
+
     private final GameService gameService;
     private final GameMapper gameMapper;
 
@@ -98,5 +100,6 @@ public class GameController {
         System.out.println(gameService.findById(id).getDate());
         return ResponseEntity.noContent().build();
     }
+
 
 }

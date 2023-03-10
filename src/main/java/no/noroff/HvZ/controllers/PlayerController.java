@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
-
 
 @CrossOrigin("*")
 @RestController
@@ -57,6 +55,7 @@ public class PlayerController {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findById(id)));
     }
 
+
     @Operation(summary = "Gets all players")
     @ApiResponses(value = {
             @ApiResponse(
@@ -69,10 +68,13 @@ public class PlayerController {
             )
     })
 
+
+
     @GetMapping
     public ResponseEntity findAll() {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findAll()));
     }
+
 
     @Operation(summary = "Adds a player")
     @ApiResponses(value = {
@@ -81,7 +83,7 @@ public class PlayerController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Player.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
                     }
             ),
             @ApiResponse(
@@ -91,6 +93,8 @@ public class PlayerController {
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
+
+
     @PostMapping
     public ResponseEntity add(@RequestBody PlayerPostDTO playerDTO){
         Player player = playerService.add(playerMapper.playerPostDtoToPlayer(playerDTO));
@@ -105,7 +109,7 @@ public class PlayerController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Player.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
                     }
             ),
             @ApiResponse(
@@ -115,6 +119,8 @@ public class PlayerController {
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
+
+
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody PlayerUpdateDTO playerDTO, @PathVariable Integer id){
 
@@ -126,6 +132,8 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
 
+
+
     @Operation(summary = "Deletes a player")
     @ApiResponses(value = {
             @ApiResponse(
@@ -133,7 +141,7 @@ public class PlayerController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Player.class)))
+                                    array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
                     }
             ),
             @ApiResponse(

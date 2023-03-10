@@ -1,4 +1,4 @@
-package no.noroff.HvZ.models.dto;
+package no.noroff.HvZ.models.dto.squad;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
