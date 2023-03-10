@@ -117,7 +117,6 @@ public class PlayerController {
     })
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody PlayerUpdateDTO playerDTO, @PathVariable Integer id){
-
         if (id != playerDTO.getId()){
             System.out.println(playerDTO.getId());
             return ResponseEntity.badRequest().build();
