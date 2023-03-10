@@ -114,7 +114,6 @@ public class GameController {
     public ResponseEntity updatePlayer(@PathVariable Integer id, @RequestBody int[] playerIds){
         gameService.updatePlayers(id, playerIds);
         return ResponseEntity.noContent().build();
-
     }
 
 }
