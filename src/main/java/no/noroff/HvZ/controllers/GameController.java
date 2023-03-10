@@ -7,11 +7,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.GameMapper;
+import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.dto.game.GameDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
 import no.noroff.HvZ.models.dto.game.GamePutDTO;
 import no.noroff.HvZ.services.game.GameService;
+import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameController {
     private final GameService gameService;
     private final GameMapper gameMapper;
+    private final PlayerMapper playerMapper;
+    private final PlayerService playerService;
 
-    public GameController(GameService gameService, GameMapper gameMapper) {
+    public GameController(GameService gameService, GameMapper gameMapper, PlayerMapper playerMapper, PlayerService playerService) {
         this.gameService = gameService;
         this.gameMapper = gameMapper;
+        this.playerMapper = playerMapper;
+        this.playerService = playerService;
     }
 
     @Operation(summary = "Gets game by ID")
@@ -97,6 +103,18 @@ public class GameController {
         gameService.findById(id).setDate(date);
         System.out.println(gameService.findById(id).getDate());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("{id}/players")
+    public ResponseEntity getPlayers(@PathVariable Integer id){
+        return ResponseEntity.ok(playerMapper.playerToPlayerDTO(gameService.getPlayers(id)));
+    }
+
+    @PutMapping("{id}/players")
+    public ResponseEntity updatePlayer(@PathVariable Integer id, @RequestBody int[] playerIds){
+        gameService.updatePlayers(id, playerIds);
+        return ResponseEntity.noContent().build();
+
     }
 
 }
