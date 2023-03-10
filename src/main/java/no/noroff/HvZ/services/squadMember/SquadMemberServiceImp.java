@@ -2,7 +2,6 @@ package no.noroff.HvZ.services.squadMember;
 
 import no.noroff.HvZ.models.SquadMember;
 import no.noroff.HvZ.models.exceptions.squadMember.SquadMemberNotFound;
-import no.noroff.HvZ.repositories.SquadRepository;
 import no.noroff.HvZ.repositories.SquagMemberRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +12,9 @@ public class SquadMemberServiceImp implements SquadMemberService {
 
     private SquagMemberRepository squadMemberRepository;
 
+    public SquadMemberServiceImp(SquagMemberRepository squadMemberRepository) {
+        this.squadMemberRepository = squadMemberRepository;
+    }
 
 
     @Override
