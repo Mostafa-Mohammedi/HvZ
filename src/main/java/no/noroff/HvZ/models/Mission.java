@@ -10,7 +10,7 @@ import java.util.Date;
 public class Mission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int missionId;
+    private int id;
     private String name;
     private boolean is_human_visible;
     private boolean is_zombie_visible;

@@ -1,11 +1,11 @@
 package no.noroff.HvZ.models.dto.mission;
 
+
 import lombok.Data;
 
 @Data
-public class MissionDTO {
+public class MissionPostDTO {
 
-    private int id;
     private String name;
     private boolean is_human_visible;
     private boolean is_zombie_visible;
