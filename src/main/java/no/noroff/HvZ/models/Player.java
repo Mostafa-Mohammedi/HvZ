@@ -19,6 +19,10 @@ public class Player {
     private int id;
 
     private boolean isHuman;
+    private String lastCheckInTime;
+
+    private double lat;
+    private double lng;
 
     private boolean isPatientZero;
 

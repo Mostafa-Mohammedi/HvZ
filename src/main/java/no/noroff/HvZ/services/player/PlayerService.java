@@ -6,4 +6,6 @@ import java.util.Collection;
 public interface PlayerService extends CrudService<Player, Integer> {
     Player findById(Integer id);
     Collection<Player> findAll();
+
+    void playerCheckIn(Player entity);
 }

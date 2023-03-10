@@ -1,6 +1,7 @@
 package no.noroff.HvZ.mappers;
 
 import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.dto.player.PlayerCheckInDTO;
 import no.noroff.HvZ.models.dto.player.PlayerDTO;
 import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
 import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
@@ -16,8 +17,8 @@ public interface PlayerMapper {
 
     PlayerDTO playerToPlayerDTO(Player player);
     Collection<PlayerDTO> playerToPlayerDTO(Collection<Player> player);
+    Player playerPostDtoToPlayer(PlayerPostDTO playerPostDTO);
+    Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerUpdateDTO);
 
-
-    Player playerPostDtoToPlayer(PlayerPostDTO playerDTO);
-    Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerDTO);
+    Player playerCheckInDTOtoPlayer(PlayerCheckInDTO playerCheckInDTO);
 }

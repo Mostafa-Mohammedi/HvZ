@@ -45,4 +45,9 @@ public class PlayerServiceImpl implements PlayerService {
     public Collection<Player> findAll() {
         return playerRepository.findAll();
     }
+
+    @Override
+    public void playerCheckIn(Player entity) {
+        // TODO fiks den dritten her
+    }
 }
