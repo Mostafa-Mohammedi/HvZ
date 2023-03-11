@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
 @CrossOrigin("*")
 
 @RestController
@@ -85,6 +83,7 @@ public class MissionController {
     }
 
 
+
     @PostMapping
     @Operation(summary = "add a new mission")
     @ApiResponses( value = {
@@ -141,5 +140,29 @@ public class MissionController {
             return ResponseEntity.noContent().build();
         }
     }
+    @Operation(summary = "Deletes a mission by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = MissionDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Integer id){
+        missionService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 }

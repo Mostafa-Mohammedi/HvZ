@@ -9,10 +9,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.SquadMapper;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
+import no.noroff.HvZ.models.dto.chat.ChatDTO;
+import no.noroff.HvZ.models.dto.chat.ChatPutDTO;
+import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
 import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
 import no.noroff.HvZ.models.dto.squad.SquadDTO;
 import no.noroff.HvZ.models.dto.squad.SquadPostDTO;
+import no.noroff.HvZ.models.dto.squad.SquadPutDTO;
 import no.noroff.HvZ.services.squad.SquadService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -102,6 +106,62 @@ public class SquadController {
         URI location = URI.create("api/v1/squad/" + squad.getId());
         return ResponseEntity.created(location).build();
     }
+
+
+
+    @PutMapping("{id}")
+    @Operation(summary = "Update Chat by ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "update squad",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = SquadDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    public ResponseEntity update(@RequestBody SquadPutDTO squadPutDTO, @PathVariable Integer id){
+        if(id != squadPutDTO.getId()){
+            return ResponseEntity.badRequest().build();
+        }
+        else {
+            squadService.update(squadMapper.squadPutDTO(squadPutDTO));
+            return ResponseEntity.noContent().build();
+        }
+    }
+
+
+
+    @Operation(summary = "Deletes a Squad by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = SquadDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Integer id){
+        squadService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }

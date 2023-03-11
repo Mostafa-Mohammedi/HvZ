@@ -31,7 +31,7 @@ public class UserController {
     }
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/getAllUser")
-    @Operation(summary = "Gets all the movies in the database")
+    @Operation(summary = "Gets all the user")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
