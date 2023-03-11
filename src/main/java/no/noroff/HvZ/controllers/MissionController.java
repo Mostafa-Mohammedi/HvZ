@@ -7,13 +7,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.MissionMapper;
 import no.noroff.HvZ.models.Mission;
-import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.dto.mission.MissionDTO;
 import no.noroff.HvZ.models.dto.mission.MissionPostDTO;
 import no.noroff.HvZ.models.dto.mission.MissionPutDTO;
-import no.noroff.HvZ.models.dto.squad.SquadDTO;
-import no.noroff.HvZ.models.dto.squad.SquadPostDTO;
-import no.noroff.HvZ.models.dto.squad.SquadPutDTO;
+import no.noroff.HvZ.repositories.MissionRepository;
 import no.noroff.HvZ.services.mission.MissionService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
-
+import java.net.URISyntaxException;
 @CrossOrigin("*")
 
 @RestController
@@ -89,49 +85,53 @@ public class MissionController {
 
 
     @PostMapping
-    @Operation(summary = "Create Squad")
-    @ApiResponses(value = {
+    @Operation(summary = "add a new mission")
+    @ApiResponses( value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "successful",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = SquadDTO.class))
+                            schema = @Schema(implementation = MissionDTO.class))
                     }
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProblemDetail.class))
+                    description = "Could not find user",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    }
             )
     })
-    public ResponseEntity add(@RequestBody MissionPostDTO missionPostDTO){
-        Mission mission = missionService.add(missionMapper.missionPostDTO(missionPostDTO));
-        URI location = URI.create("api/v1/squad/" + mission.getId());
-        return ResponseEntity.created(location).build();
+    public ResponseEntity add(@RequestBody MissionPostDTO missionPostDTO) throws URISyntaxException {
+        Mission mission = missionMapper.missionPostDTO(missionPostDTO);
+        missionService.add(mission);
+        URI uri  = new URI("api/v1/mission/" + mission.getId());
+        return ResponseEntity.created(uri).build();
     }
 
 
     @PutMapping("{id}")
-    @Operation(summary = "Update mission by ID")
+    @Operation(summary = "Update mission")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "update mission",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = MissionDTO.class))
-                    }
+                    description = "update mission"
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProblemDetail.class))
+                    description = "Could not find user",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    }
             )
+
     })
     public ResponseEntity update(@RequestBody MissionPutDTO missionPutDTO, @PathVariable Integer id){
+        System.out.println(id);
+        System.out.println(missionPutDTO.getId());
         if(id != missionPutDTO.getId()){
             return ResponseEntity.badRequest().build();
         }
@@ -140,17 +140,14 @@ public class MissionController {
             return ResponseEntity.noContent().build();
         }
     }
-
-
-
-    @Operation(summary = "Deletes a Squad by id")
+    @Operation(summary = "Deletes a mission by id")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = SquadDTO.class))
+                                    schema = @Schema(implementation = MissionDTO.class))
                     }
             ),
             @ApiResponse(
