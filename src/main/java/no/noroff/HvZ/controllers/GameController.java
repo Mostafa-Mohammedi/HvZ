@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/v1/games")
 public class GameController {
+
+
     private final GameService gameService;
     private final GameMapper gameMapper;
     private final PlayerMapper playerMapper;
@@ -100,17 +102,12 @@ public class GameController {
     public ResponseEntity update(@RequestBody GamePutDTO entity, @PathVariable Integer id) {
         if (id != entity.getId())
             return ResponseEntity.badRequest().build();
-        String date = gameService.findById(id).getDate();
-        System.out.println(date);
         gameService.update(
                 gameMapper.gamePutDTOtoGame(entity)
-
         );
-        System.out.println(date);
-        gameService.findById(id).setDate(date);
-        System.out.println(gameService.findById(id).getDate());
         return ResponseEntity.noContent().build();
     }
+
 
     @GetMapping("{id}/players")
     public ResponseEntity getPlayers(@PathVariable Integer id){
@@ -118,10 +115,9 @@ public class GameController {
     }
 
     @PutMapping("{id}/players")
-    public ResponseEntity updatePlayer(@PathVariable Integer id, @RequestBody int[] playerIds){
+    public ResponseEntity updatePlayers(@PathVariable Integer id, @RequestBody int[] playerIds){
         gameService.updatePlayers(id, playerIds);
         return ResponseEntity.noContent().build();
-
     }
 
     @GetMapping("{id}/kills")

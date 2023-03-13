@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.SquadMemberMapper;
 import no.noroff.HvZ.models.SquadMember;
+import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.models.dto.squadMember.SquadMemberDTO;
 import no.noroff.HvZ.models.dto.squadMember.SquadMemberPostDTO;
 import no.noroff.HvZ.models.dto.squadMember.SquadMemberUpdateDTO;
@@ -20,7 +21,6 @@ import java.util.Objects;
 @RestController
 @RequestMapping(path = "api/v1/squadMember")
 public class SquadMemberController {
-
     private SquadMemberService squadMemberService;
     private SquadMemberMapper squadMemberMapper;
 
@@ -106,5 +106,33 @@ public class SquadMemberController {
             return ResponseEntity.noContent().build();
         }
     }
+
+
+    @Operation(summary = "Deletes a SquadMember by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = SquadMemberDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Integer id){
+        squadMemberService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+
 
 }

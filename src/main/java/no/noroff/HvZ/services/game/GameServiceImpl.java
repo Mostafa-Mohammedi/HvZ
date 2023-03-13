@@ -72,13 +72,7 @@ public class GameServiceImpl implements GameService{
     @Override
     public void updatePlayers(int gameId, int[] playerIds){
         Game game = gameRepository.findById(gameId).get();
-        Collection<Player> oldPlayers = game.getPlayers();
-        oldPlayers.forEach(p -> {
-            p.setGame(null);
-        });
-        
         Set<Player> playerList = new HashSet<>();
-
         for (int id : playerIds){
             playerList.add(playerRepository.findById(id).get());
         }

@@ -14,23 +14,24 @@ import java.util.Set;
 @Getter
 @Setter
 public class Player {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private boolean isHuman;
-
+    private String lastCheckInTime;
+    private double lat;
+    private double lng;
     private boolean isPatientZero;
-
     @Column(length = 50, nullable = false)
     private String biteCode;
-
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
 
@@ -43,5 +44,4 @@ public class Player {
     private Squad squad;
     @OneToOne(mappedBy = "player")
     private SquadMember squadMember;
-
 }
