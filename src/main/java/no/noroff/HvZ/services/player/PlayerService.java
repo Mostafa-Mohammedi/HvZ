@@ -7,5 +7,5 @@ public interface PlayerService extends CrudService<Player, Integer> {
     Player findById(Integer id);
     Collection<Player> findAll();
 
-    void playerCheckIn(Player entity);
+    Player playerCheckIn(Player entity, Integer id);
 }

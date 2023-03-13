@@ -19,6 +19,5 @@ public interface PlayerMapper {
     Collection<PlayerDTO> playerToPlayerDTO(Collection<Player> player);
     Player playerPostDtoToPlayer(PlayerPostDTO playerPostDTO);
     Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerUpdateDTO);
-
     Player playerCheckInDTOtoPlayer(PlayerCheckInDTO playerCheckInDTO);
 }
