@@ -2,9 +2,11 @@ package no.noroff.HvZ.services.game;
 
 import lombok.SneakyThrows;
 import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
 import no.noroff.HvZ.repositories.GameRepository;
+import no.noroff.HvZ.repositories.KillRepository;
 import no.noroff.HvZ.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,12 @@ import java.time.format.DateTimeFormatter;
 public class GameServiceImpl implements GameService{
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
+    private final KillRepository killRepository;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
+        this.killRepository = killRepository;
     }
 
     @SneakyThrows
@@ -76,6 +80,31 @@ public class GameServiceImpl implements GameService{
         playerList.forEach(p -> {
             p.setGame(game);
             playerRepository.save(p);
+        });
+    }
+
+    @Override
+    public Collection<Kill> getKills(Integer game_id){
+        return gameRepository.findById(game_id).get().getKills();
+    }
+
+    @Override
+    public void updateKills(int gameId, int[] killIds){
+        Game game = gameRepository.findById(gameId).get();
+        Collection<Kill> oldKills = game.getKills();
+        oldKills.forEach(k -> {
+            k.setGame(null);
+        });
+
+        Set<Kill> killList = new HashSet<>();
+
+        for (int id : killIds){
+            killList.add(killRepository.findById(id).get());
+        }
+
+        killList.forEach(k -> {
+            k.setGame(game);
+            killRepository.save(k);
         });
     }
 }
