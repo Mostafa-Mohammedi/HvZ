@@ -86,7 +86,7 @@ public class KillController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Kill.class))
+                                    schema = @Schema(implementation = KillDTO.class))
                     }
             ),
             @ApiResponse(
@@ -111,7 +111,7 @@ public class KillController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Kill.class))
+                                    schema = @Schema(implementation = KillDTO.class))
                     }
             ),
             @ApiResponse(
@@ -134,7 +134,7 @@ public class KillController {
                     description = "Success",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Kill.class))
+                                    schema = @Schema(implementation = KillDTO.class))
                     }
             ),
             @ApiResponse(
@@ -153,4 +153,5 @@ public class KillController {
 
         return ResponseEntity.noContent().build();
     }
+
 }

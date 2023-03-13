@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.UserMapper;
 import no.noroff.HvZ.models.User;
-import no.noroff.HvZ.models.dto.squadMember.SquadMemberDTO;
 import no.noroff.HvZ.models.dto.user.PostUserDTO;
 import no.noroff.HvZ.models.dto.user.UpdateUserDTO;
 import no.noroff.HvZ.models.dto.user.UserDTO;
@@ -23,7 +22,6 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping(path = "api/v1/users")
 public class UserController {
-
     private final UserService userService;
     private final UserMapper userMapper;
 
@@ -31,10 +29,9 @@ public class UserController {
         this.userService = userService;
         this.userMapper = userMapper;
     }
-
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/getAllUser")
-    @Operation(summary = "Gets all the movies in the database")
+    @Operation(summary = "Gets all the user")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -123,14 +120,12 @@ public class UserController {
         }
     }
 
-    /*
+
     @DeleteMapping("{id}")
     public ResponseEntity deleteUser(@PathVariable int id){
          userService.deleteById(id);
          return ResponseEntity.noContent().build();
     }
-
-     */
 
 
 

@@ -11,6 +11,7 @@ import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.dto.chat.ChatDTO;
 import no.noroff.HvZ.models.dto.chat.ChatPostDTO;
 import no.noroff.HvZ.models.dto.chat.ChatPutDTO;
+import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.services.chat.ChatService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping(path = "api/v1/chat")
 public class ChatController {
+
 
     private ChatService chatService;
     private Chatmapper chatMapper;
@@ -117,5 +119,31 @@ public class ChatController {
             return ResponseEntity.noContent().build();
         }
     }
+
+
+    @Operation(summary = "Deletes a chat by id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ChatDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Integer id){
+        chatService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
 

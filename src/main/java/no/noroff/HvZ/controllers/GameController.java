@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "api/v1/games")
 public class GameController {
+
+
     private final GameService gameService;
     private final GameMapper gameMapper;
     private final PlayerMapper playerMapper;
@@ -99,6 +101,7 @@ public class GameController {
         return ResponseEntity.noContent().build();
     }
 
+
     @GetMapping("{id}/players")
     public ResponseEntity getPlayers(@PathVariable Integer id){
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(gameService.getPlayers(id)));
@@ -109,5 +112,6 @@ public class GameController {
         gameService.updatePlayers(id, playerIds);
         return ResponseEntity.noContent().build();
     }
+
 
 }
