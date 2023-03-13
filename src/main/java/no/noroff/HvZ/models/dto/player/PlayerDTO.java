@@ -21,6 +21,7 @@ public class PlayerDTO {
 
     private Integer user;
     private Integer game;
+    private Set<String> chat;
 
 
 

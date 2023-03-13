@@ -1,9 +1,12 @@
 package no.noroff.HvZ.services.game;
 
 import lombok.SneakyThrows;
+import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.dto.chat.ChatPostDTO;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
+import no.noroff.HvZ.repositories.ChatRepository;
 import no.noroff.HvZ.repositories.GameRepository;
 import no.noroff.HvZ.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
@@ -16,10 +19,12 @@ import java.time.format.DateTimeFormatter;
 public class GameServiceImpl implements GameService{
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
+    private  final ChatRepository chatRepository;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, ChatRepository chatRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
+        this.chatRepository = chatRepository;
     }
 
     @SneakyThrows
@@ -77,5 +82,11 @@ public class GameServiceImpl implements GameService{
             p.setGame(game);
             playerRepository.save(p);
         });
+    }
+
+    @Override
+    public Collection<Chat> getChats(Integer game_id){
+        Collection<Chat> gameChat =  gameRepository.findById(game_id).get().getChats();
+        return gameChat;
     }
 }

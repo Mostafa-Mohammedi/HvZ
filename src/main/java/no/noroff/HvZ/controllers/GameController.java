@@ -9,9 +9,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.GameMapper;
 import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.dto.chat.ChatDTO;
 import no.noroff.HvZ.models.dto.game.GameDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
 import no.noroff.HvZ.models.dto.game.GamePutDTO;
+import no.noroff.HvZ.services.chat.ChatService;
 import no.noroff.HvZ.services.game.GameService;
 import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
@@ -35,6 +37,7 @@ public class GameController {
     private final GameMapper gameMapper;
     private final PlayerMapper playerMapper;
     private final PlayerService playerService;
+
 
     public GameController(GameService gameService, GameMapper gameMapper, PlayerMapper playerMapper, PlayerService playerService) {
         this.gameService = gameService;
@@ -113,11 +116,33 @@ public class GameController {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(gameService.getPlayers(id)));
     }
 
+    @GetMapping("{id}/chats")
+    @Operation(summary = "Gets Chat from game ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ChatDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    public ResponseEntity getChats(@PathVariable Integer id){
+        return ResponseEntity.ok(gameMapper.chatListDTO(gameService.getChats(id)));
+    }
+
+
     @PutMapping("{id}/players")
     public ResponseEntity updatePlayer(@PathVariable Integer id, @RequestBody int[] playerIds){
         gameService.updatePlayers(id, playerIds);
         return ResponseEntity.noContent().build();
     }
-
 
 }
