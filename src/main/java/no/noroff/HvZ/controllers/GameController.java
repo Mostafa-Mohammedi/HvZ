@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.GameMapper;
 import no.noroff.HvZ.mappers.KillMapper;
 import no.noroff.HvZ.mappers.PlayerMapper;
+import no.noroff.HvZ.mappers.SquadMapper;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.dto.game.GameDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
@@ -16,6 +17,7 @@ import no.noroff.HvZ.models.dto.game.GamePutDTO;
 import no.noroff.HvZ.services.game.GameService;
 import no.noroff.HvZ.services.kill.KillService;
 import no.noroff.HvZ.services.player.PlayerService;
+import no.noroff.HvZ.services.squad.SquadService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,13 +43,18 @@ public class GameController {
     private final KillMapper killMapper;
     private final KillService killService;
 
-    public GameController(GameService gameService, GameMapper gameMapper, PlayerMapper playerMapper, PlayerService playerService, KillMapper killMapper, KillService killService) {
+    private final SquadMapper squadMapper;
+    private final SquadService squadService;
+
+    public GameController(GameService gameService, GameMapper gameMapper, PlayerMapper playerMapper, PlayerService playerService, KillMapper killMapper, KillService killService, SquadMapper squadMapper, SquadService squadService) {
         this.gameService = gameService;
         this.gameMapper = gameMapper;
         this.playerMapper = playerMapper;
         this.playerService = playerService;
         this.killMapper = killMapper;
         this.killService = killService;
+        this.squadMapper = squadMapper;
+        this.squadService = squadService;
     }
 
     @Operation(summary = "Gets game by ID")
@@ -129,7 +136,16 @@ public class GameController {
     public ResponseEntity updateKills(@PathVariable Integer id, @RequestBody int[] killIds){
         gameService.updateKills(id, killIds);
         return ResponseEntity.noContent().build();
-
     }
 
+    @GetMapping("{id}/squads")
+    public ResponseEntity getSquads(@PathVariable Integer id){
+        return ResponseEntity.ok(squadMapper.squadToSquadDTO(gameService.getSquads(id)));
+    }
+
+    @PutMapping("{id}/squads")
+    public ResponseEntity updateSquads(@PathVariable Integer id, @RequestBody int[] squadIds){
+        gameService.updateSquads(id, squadIds);
+        return ResponseEntity.noContent().build();
+    }
 }
