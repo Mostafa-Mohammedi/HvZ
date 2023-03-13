@@ -54,11 +54,11 @@ public interface GameMapper {
                 .collect(Collectors.toSet());
     }
     @Named(value = "chatsToId")
-    default Collection<String> chatList(Collection<Chat> value) {
+    default Collection<Integer> chatList(Collection<Chat> value) {
         if (value == null)
             return null;
         return value.stream()
-                .map(Chat::getMessage)
+                .map(Chat::getId)
                 .collect(Collectors.toSet());
     }
 

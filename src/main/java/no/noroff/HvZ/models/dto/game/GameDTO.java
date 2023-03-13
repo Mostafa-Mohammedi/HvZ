@@ -21,5 +21,5 @@ public class GameDTO {
     private Set<Integer> players;
     private Set<Integer> squads;
     private Set<Integer> kills;
-    private Collection<String> chats;
+    private Collection<Integer> chats;
 }
