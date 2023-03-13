@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.dto.player.PlayerCheckInDTO;
 import no.noroff.HvZ.models.dto.player.PlayerDTO;
 import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
 import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
@@ -131,8 +132,29 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
 
-
-
+    @Operation(summary = "Gets player check in by ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Success",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = PlayerCheckInDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+    @PutMapping("{id}/checkIn")
+    public ResponseEntity CheckIn(PlayerCheckInDTO playerCheckInDTO, @PathVariable Integer id){
+        playerService.playerCheckIn(playerMapper.playerCheckInDTOtoPlayer(playerCheckInDTO), id);
+        return ResponseEntity.noContent().build();
+    }
+    
     @Operation(summary = "Deletes a player")
     @ApiResponses(value = {
             @ApiResponse(

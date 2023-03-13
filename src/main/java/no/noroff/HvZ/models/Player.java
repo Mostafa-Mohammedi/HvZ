@@ -20,12 +20,12 @@ public class Player {
     private int id;
 
     private boolean isHuman;
-
+    private String lastCheckInTime;
+    private double lat;
+    private double lng;
     private boolean isPatientZero;
-
     @Column(length = 50, nullable = false)
     private String biteCode;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -44,5 +44,4 @@ public class Player {
     private Squad squad;
     @OneToOne(mappedBy = "player")
     private SquadMember squadMember;
-
 }
