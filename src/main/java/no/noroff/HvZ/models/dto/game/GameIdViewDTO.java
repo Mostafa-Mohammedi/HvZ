@@ -22,7 +22,7 @@ public class GameIdViewDTO {
     private String date;
     private int maxPlayers;
     private int playerCount;
-    private Set<Player> players;
-    private Set<Squad> squads;
-    private Set<Kill> kills;
+    private Set<PlayerDTO> players;
+    private Set<Integer> squads;
+    private Set<KillDTO> kills;
 }

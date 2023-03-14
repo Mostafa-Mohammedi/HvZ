@@ -21,6 +21,7 @@ public class Player {
 
     private boolean isHuman;
     private String lastCheckInTime;
+    private String username;
     private double lat;
     private double lng;
     private boolean isPatientZero;

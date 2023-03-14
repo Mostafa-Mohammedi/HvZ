@@ -18,10 +18,7 @@ public class PlayerDTO {
     private double lat;
     private double lng;
     private String biteCode;
-
-
     private Squad squad;
-
     private Integer user;
     private Integer game;
 

@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PlayerMapper.class, KillMapper.class})
 public interface GameMapper {
     @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
     @Mapping(target = "kills", source = "kills", qualifiedByName = "killsToKillsId")
@@ -28,7 +28,7 @@ public interface GameMapper {
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
     Game gamePutDTOtoGame(GamePutDTO gamePutDTO);
     Collection<GameDTO> gameToGameDTO(Collection<Game> game);
-
+    @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
     GameIdViewDTO gameToGameIdViewDTO(Game game);
 
     @Named(value = "squadsToSquadsId")
