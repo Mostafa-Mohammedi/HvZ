@@ -5,8 +5,12 @@ import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.dto.game.GameDTO;
+import no.noroff.HvZ.models.dto.game.GameIdViewDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
 import no.noroff.HvZ.models.dto.game.GamePutDTO;
+import no.noroff.HvZ.models.dto.squad.SquadDTO;
+import no.noroff.HvZ.models.dto.squad.SquadPostDTO;
+import no.noroff.HvZ.models.dto.squad.SquadPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -24,6 +28,8 @@ public interface GameMapper {
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
     Game gamePutDTOtoGame(GamePutDTO gamePutDTO);
     Collection<GameDTO> gameToGameDTO(Collection<Game> game);
+
+    GameIdViewDTO gameToGameIdViewDTO(Game game);
 
     @Named(value = "squadsToSquadsId")
     default Set<Integer> map(Set<Squad> value) {
