@@ -77,7 +77,7 @@ public class GameController {
 
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(gameMapper.gameToGameDTO(gameService.findById(id)));
+        return ResponseEntity.ok(gameMapper.gameToGameIdViewDTO(gameService.findById(id)));
     }
 
     @Operation(summary = "Gets all games")
