@@ -3,12 +3,15 @@ package no.noroff.HvZ.services.game;
 import lombok.SneakyThrows;
 import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
-import no.noroff.HvZ.models.dto.chat.ChatPostDTO;
+import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
 import no.noroff.HvZ.repositories.ChatRepository;
 import no.noroff.HvZ.repositories.GameRepository;
+import no.noroff.HvZ.repositories.KillRepository;
 import no.noroff.HvZ.repositories.PlayerRepository;
+import no.noroff.HvZ.repositories.SquadRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,12 +22,15 @@ import java.time.format.DateTimeFormatter;
 public class GameServiceImpl implements GameService{
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
-    private  final ChatRepository chatRepository;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, ChatRepository chatRepository) {
+    private final KillRepository killRepository;
+    private final SquadRepository squadRepository;
+
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository, SquadRepository squadRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
-        this.chatRepository = chatRepository;
+        this.killRepository = killRepository;
+        this.squadRepository = squadRepository;
     }
 
     @SneakyThrows
@@ -85,8 +91,43 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public Collection<Chat> getChats(Integer game_id){
-        Collection<Chat> gameChat =  gameRepository.findById(game_id).get().getChats();
-        return gameChat;
+
+    public Collection<Kill> getKills(Integer id) {
+        return gameRepository.findById(id).get().getKills();
+    }
+
+    @Override
+    public void updateKills(int gameId, int[] killIds) {
+        Game game = gameRepository.findById(gameId).get();
+        Set<Kill> killList = new HashSet<>();
+
+        for (int id : killIds){
+            killList.add(killRepository.findById(id).get());
+        }
+
+        killList.forEach(k -> {
+            k.setGame(game);
+            killRepository.save(k);
+        });
+    }
+
+    @Override
+    public Collection<Squad> getSquads(Integer game_id){
+        return gameRepository.findById(game_id).get().getSquads();
+    }
+
+    @Override
+    public void updateSquads(int gameId, int[] squadsIds){
+        Game game = gameRepository.findById(gameId).get();
+        Set<Squad> squadList = new HashSet<>();
+
+        for (int id : squadsIds){
+            squadList.add(squadRepository.findById(id).get());
+        }
+
+        squadList.forEach(s -> {
+            s.setGame(game);
+            squadRepository.save(s);
+        });
     }
 }

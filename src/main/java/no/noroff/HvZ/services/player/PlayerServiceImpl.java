@@ -6,6 +6,7 @@ import no.noroff.HvZ.repositories.PlayerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -28,7 +29,6 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void deleteById(Integer id) {
         playerRepository.deleteById(id);
-
     }
 
     @Override
@@ -44,5 +44,14 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Collection<Player> findAll() {
         return playerRepository.findAll();
+    }
+
+    @Override
+    public Player playerCheckIn(Player entity, Integer id) {
+        Player player = playerRepository.findById(id).get();
+        player.setLng(entity.getLng());
+        player.setLat(entity.getLat());
+        player.setLastCheckInTime(entity.getLastCheckInTime());
+        return playerRepository.save(player);
     }
 }

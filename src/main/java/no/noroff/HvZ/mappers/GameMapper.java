@@ -3,8 +3,12 @@ package no.noroff.HvZ.mappers;
 import no.noroff.HvZ.models.*;
 import no.noroff.HvZ.models.dto.game.GameChatDTO;
 import no.noroff.HvZ.models.dto.game.GameDTO;
+import no.noroff.HvZ.models.dto.game.GameIdViewDTO;
 import no.noroff.HvZ.models.dto.game.GamePostDTO;
 import no.noroff.HvZ.models.dto.game.GamePutDTO;
+import no.noroff.HvZ.models.dto.squad.SquadDTO;
+import no.noroff.HvZ.models.dto.squad.SquadPostDTO;
+import no.noroff.HvZ.models.dto.squad.SquadPutDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -14,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {PlayerMapper.class, KillMapper.class})
 public interface GameMapper {
     @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
     @Mapping(target = "kills", source = "kills", qualifiedByName = "killsToKillsId")
@@ -25,7 +29,9 @@ public interface GameMapper {
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
     Game gamePutDTOtoGame(GamePutDTO gamePutDTO);
     Collection<GameDTO> gameToGameDTO(Collection<Game> game);
-    Collection<GameChatDTO> chatListDTO(Collection<Chat> chat);
+on<GameChatDTO> chatListDTO(Collection<Chat> chat);
+    @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
+    GameIdViewDTO gameToGameIdViewDTO(Game game);
 
     @Named(value = "squadsToSquadsId")
     default Set<Integer> map(Set<Squad> value) {

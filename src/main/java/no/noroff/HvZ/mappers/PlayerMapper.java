@@ -1,6 +1,7 @@
 package no.noroff.HvZ.mappers;
 import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.Player;
+import no.noroff.HvZ.models.dto.player.PlayerCheckInDTO;
 import no.noroff.HvZ.models.dto.player.PlayerDTO;
 import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
 import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
@@ -21,14 +22,7 @@ public interface PlayerMapper {
     PlayerDTO playerToPlayerDTO(Player player);
     Collection<PlayerDTO> playerToPlayerDTO(Collection<Player> player);
 
-    Player playerPostDtoToPlayer(PlayerPostDTO playerDTO);
-    Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerDTO);
-
-    @Named("chatToPlayer")
-    default Set<String> playerChat(Set<Chat> playerChat){
-        if(playerChat == null){
-            return null;
-        }
-        return playerChat.stream().map(Chat::getMessage).collect(Collectors.toSet());
-    }
+    Player playerPostDtoToPlayer(PlayerPostDTO playerPostDTO);
+    Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerUpdateDTO);
+    Player playerCheckInDTOtoPlayer(PlayerCheckInDTO playerCheckInDTO);
 }

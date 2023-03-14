@@ -7,8 +7,7 @@ import java.util.Set;
 @Data
 public class UserDTO {
     private int id;
-    private String firstName;
-    private String lastName;
+    private String username;
     //private Set<Integer> players;
 
 }
