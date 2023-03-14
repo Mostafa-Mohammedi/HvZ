@@ -11,8 +11,8 @@ UPDATE kill SET game_id = 1 WHERE id = 1;
 
 INSERT INTO users (username) VALUES ('Love');
 INSERT INTO users (username) VALUES ('Hans');
-INSERT INTO player (is_human, is_patient_zero, bite_code, user_id, game_id,lat, lng) VALUES (true, true, 'something', 1, 1,59.92,10.77);
-INSERT INTO player (is_human, is_patient_zero, bite_code, user_id, game_id,lat, lng) VALUES (true, true, 'something', 2, 2,0,0);
+INSERT INTO player (is_human, is_patient_zero, bite_code, users_id, game_id,lat, lng) VALUES (true, true, 'something', 1, 1,59.92,10.77);
+INSERT INTO player (is_human, is_patient_zero, bite_code, users_id, game_id,lat, lng) VALUES (true, true, 'something', 2, 2,0,0);
 
 Insert into mission (description, end_time, is_human_visible, is_zombie_visible, name, start_time) values('warzone', '2022', false, true, 'testing war zone', '2021' );
 insert into chat (chat_time, is_human_global, is_zombie_global, message) values('2022', false, true, 'dette er en chat');

@@ -1,6 +1,7 @@
 package no.noroff.HvZ.models.dto.user;
 
 import lombok.Data;
+import no.noroff.HvZ.models.User;
 
 import java.util.Set;
 
@@ -8,6 +9,6 @@ import java.util.Set;
 public class UserDTO {
     private int id;
     private String username;
-    //private Set<Integer> players;
+    private Set<Integer> players;
 
 }

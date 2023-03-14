@@ -11,5 +11,6 @@ public class KillDTO {
     private String story;
     private double lat;
     private double lng;
+    private String player;
 }
 

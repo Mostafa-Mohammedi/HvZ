@@ -5,12 +5,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.mappers.UserMapper;
 import no.noroff.HvZ.models.User;
 import no.noroff.HvZ.models.dto.user.PostUserDTO;
 import no.noroff.HvZ.models.dto.user.UpdateUserDTO;
 import no.noroff.HvZ.models.dto.user.UserDTO;
 import no.noroff.HvZ.services.User.UserService;
+import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +27,14 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    private final PlayerMapper playerMapper;
+    private final PlayerService playerService;
+
+    public UserController(UserService userService, UserMapper userMapper, PlayerMapper playerMapper, PlayerService playerService) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.playerMapper = playerMapper;
+        this.playerService = playerService;
     }
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/getAllUser")
@@ -127,6 +134,17 @@ public class UserController {
          return ResponseEntity.noContent().build();
     }
 
+
+    @GetMapping("{id}/players")
+    public ResponseEntity getPlayers(@PathVariable Integer id){
+        return ResponseEntity.ok(playerMapper.playerToPlayerDTO(userService.getPlayers(id)));
+    }
+
+    @PutMapping("{id}/players")
+    public ResponseEntity updatePlayers(@PathVariable Integer id, @RequestBody int[] playerIds){
+        userService.updatePlayers(id, playerIds);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

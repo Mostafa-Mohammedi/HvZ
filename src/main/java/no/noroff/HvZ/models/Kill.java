@@ -20,5 +20,7 @@ public class Kill {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
+    @OneToOne
+    private Player player;
 
 }

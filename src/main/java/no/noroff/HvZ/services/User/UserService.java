@@ -1,5 +1,6 @@
 package no.noroff.HvZ.services.User;
 
+import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.User;
 import no.noroff.HvZ.services.CrudService;
 
@@ -12,6 +13,9 @@ public interface UserService extends CrudService<User, Integer> {
     Collection<User> findAll();
 
     User add(User entity);
+
+    Collection<Player> getPlayers(Integer id);
+    void updatePlayers(int userId, int[] playerIds);
 
 
 

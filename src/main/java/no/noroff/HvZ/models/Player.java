@@ -27,9 +27,9 @@ public class Player {
     private boolean isPatientZero;
     @Column(length = 50, nullable = false)
     private String biteCode;
-    @JsonIgnore
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "users_id")
     private User user;
 
     @ManyToOne
@@ -45,4 +45,7 @@ public class Player {
     private Squad squad;
     @OneToOne(mappedBy = "player")
     private SquadMember squadMember;
+
+    @OneToOne(mappedBy = "player")
+    private Kill kill;
 }

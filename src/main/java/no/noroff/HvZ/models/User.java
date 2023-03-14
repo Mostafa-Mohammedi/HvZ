@@ -19,7 +19,7 @@ public class User {
 
     private String username;
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private Set<Player> players;
 
 }
