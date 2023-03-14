@@ -1,5 +1,6 @@
 package no.noroff.HvZ.services.game;
 
+import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
@@ -13,6 +14,7 @@ public interface GameService extends CrudService<Game, Integer> {
     Collection<Game> findAll();
     Collection<Player> getPlayers(Integer id);
     void updatePlayers(int gameId, int[] playerIds);
+
 
     Collection<Kill> getKills(Integer id);
     void updateKills(int gameId, int[] killIds);

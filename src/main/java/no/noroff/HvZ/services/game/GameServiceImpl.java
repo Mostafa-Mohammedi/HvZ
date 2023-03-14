@@ -1,11 +1,13 @@
 package no.noroff.HvZ.services.game;
 
 import lombok.SneakyThrows;
+import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
+import no.noroff.HvZ.repositories.ChatRepository;
 import no.noroff.HvZ.repositories.GameRepository;
 import no.noroff.HvZ.repositories.KillRepository;
 import no.noroff.HvZ.repositories.PlayerRepository;
@@ -20,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 public class GameServiceImpl implements GameService{
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
+
     private final KillRepository killRepository;
     private final SquadRepository squadRepository;
 
@@ -88,6 +91,7 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
+
     public Collection<Kill> getKills(Integer id) {
         return gameRepository.findById(id).get().getKills();
     }
