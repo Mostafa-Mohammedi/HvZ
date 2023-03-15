@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.Set;
 
+@CrossOrigin("*")
+
 @RestController
 @RequestMapping(path = "api/v1/kills")
 public class KillController {
