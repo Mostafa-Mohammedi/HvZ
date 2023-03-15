@@ -48,7 +48,6 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player playerCheckIn(Player entity, Integer id) {
-        System.out.println(entity.getLat() + " " + entity.getLng() + " " + entity.getLastCheckInTime() + " " + playerRepository.findById(id).get());
         Player player = playerRepository.findById(id).get();
         player.setLng(entity.getLng());
         player.setLat(entity.getLat());
