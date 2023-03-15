@@ -30,7 +30,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
     @CrossOrigin(origins = "http://localhost:8080")
-    @GetMapping("/getAllUser")
+    @GetMapping()
     @Operation(summary = "Gets all the user")
     @ApiResponses(value = {
             @ApiResponse(

@@ -17,3 +17,5 @@ INSERT INTO player (is_human, is_patient_zero, bite_code, user_id, game_id,lat, 
 Insert into mission (description, end_time, is_human_visible, is_zombie_visible, name, start_time) values('warzone', '2022', false, true, 'testing war zone', '2021' );
 insert into chat (chat_time, is_human_global, is_zombie_global, message) values('2022', false, true, 'dette er en chat');
 INSERT INTO kill (lat, lng, story, time_of_death) VALUES (1.222, 2.2222, 'livet suger', '1234');
+UPDATE kill SET player_id = 2 WHERE id = 1;
+UPDATE player SET squad_id = 1 WHERE id = 2
