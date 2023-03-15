@@ -9,4 +9,6 @@ import lombok.Data;
 public class PlayerUpdateDTO {
     private Integer id;
     private boolean isHuman;
+    private boolean isPatientZero;
+    private String biteCode;
 }
