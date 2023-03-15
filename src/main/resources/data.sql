@@ -22,4 +22,6 @@ insert into chat (chat_time, is_human_global, is_zombie_global, message, game_id
 
 INSERT INTO kill (lat, lng, story, time_of_death) VALUES (1.222, 2.2222, 'livet suger', '1234');
 
+UPDATE kill SET player_id = 2 WHERE id = 1;
+UPDATE player SET squad_id = 1 WHERE id = 2
 

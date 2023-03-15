@@ -21,4 +21,8 @@ public class Kill {
     @JoinColumn(name = "game_id")
     private Game game;
 
+    @OneToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
 }
