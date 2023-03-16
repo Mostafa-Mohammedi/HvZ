@@ -59,7 +59,6 @@ public class Game {
     @OneToMany(mappedBy = "game")
     private Set<Squad> squads;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "game")
     private Set<Kill> kills;
 

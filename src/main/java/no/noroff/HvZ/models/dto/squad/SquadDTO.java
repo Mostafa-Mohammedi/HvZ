@@ -7,6 +7,7 @@ import lombok.Setter;
 import no.noroff.HvZ.models.Game;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
+import no.noroff.HvZ.models.dto.player.PlayerDTO;
 
 import java.util.Set;
 
@@ -16,6 +17,6 @@ public class SquadDTO {
     private int id;
 
     private String name;
-    private Set<Integer> players;
-    private Game game;
+    private Set<PlayerDTO> players;
+    private Integer game;
 }

@@ -46,8 +46,9 @@ public class Player {
     @OneToOne(mappedBy = "player")
     private SquadMember squadMember;
 
-    @OneToOne(mappedBy = "player")
-    private Kill kill;
+
+    @OneToMany(mappedBy = "player")
+    private Set<Kill> kills;
 
 
 

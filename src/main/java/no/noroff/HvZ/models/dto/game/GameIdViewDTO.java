@@ -23,6 +23,6 @@ public class GameIdViewDTO {
     private int maxPlayers;
     private int playerCount;
     private Set<PlayerDTO> players;
-    private Set<Integer> squads;
+    private Set<SquadDTO> squads;
     private Set<KillDTO> kills;
 }
