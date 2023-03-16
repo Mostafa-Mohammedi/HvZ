@@ -124,6 +124,8 @@ public class GameController {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(gameService.getPlayers(id)));
     }
 
+    /*
+
     @GetMapping("{id}/chats")
     @Operation(summary = "Gets Chat from game ID")
     @ApiResponses(value = {
@@ -146,6 +148,7 @@ public class GameController {
         return ResponseEntity.ok(gameMapper.chatListDTO(gameService.getChats(id)));
     }
 
+     */
 
     @PutMapping("{id}/players")
     public ResponseEntity updatePlayers(@PathVariable Integer id, @RequestBody int[] playerIds){

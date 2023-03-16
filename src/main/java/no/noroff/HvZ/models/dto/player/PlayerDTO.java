@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import no.noroff.HvZ.models.Squad;
 
+import java.util.Set;
+
 @Getter
 @Setter
 public class PlayerDTO {
@@ -17,7 +19,7 @@ public class PlayerDTO {
     private Squad squad;
     private Integer user;
     private Integer game;
-    private Set<String> chat;
+    private Set<Integer> chat;
 
 
 
