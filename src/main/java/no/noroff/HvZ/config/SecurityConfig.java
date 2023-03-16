@@ -38,8 +38,10 @@ public class SecurityConfig {
     }
 */
 
+
     @Bean
     public SecurityFilterChain apiFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         httpSecurity.cors()
                 .and()
                 .sessionManagement()
@@ -48,18 +50,21 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/v1/users/**" ).hasRole("ADMIN")
-                                .requestMatchers("/api/v1/games/**").authenticated()
+                                .requestMatchers("/api/v1/users/**" ).permitAll()
+                                .requestMatchers("/api/v1/games/**").permitAll()
                                 .requestMatchers("/api/v1/mission/**").permitAll()
                                 .requestMatchers("/api/v1/players/**").permitAll()
                                 .requestMatchers("/api/v1/squad/**").permitAll()
-                                .requestMatchers("/api/v1/squadMember/**").authenticated()
-                                .requestMatchers("/api/v1/chat/**").authenticated()
+                                .requestMatchers("/api/v1/squadMember/**").permitAll()
+                                .requestMatchers("/api/v1/chat/**").permitAll()
                                 .anyRequest().permitAll()
                 ).oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
 
         return httpSecurity.build();
+
     }
+
+
 
 
     @Bean
