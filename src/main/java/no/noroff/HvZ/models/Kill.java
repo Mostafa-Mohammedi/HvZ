@@ -21,7 +21,8 @@ public class Kill {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_id")
     private Player player;
 

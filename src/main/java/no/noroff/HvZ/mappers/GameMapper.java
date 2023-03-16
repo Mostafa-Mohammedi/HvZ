@@ -19,16 +19,17 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {PlayerMapper.class, KillMapper.class})
+@Mapper(componentModel = "spring", uses = {PlayerMapper.class, KillMapper.class, SquadMapper.class})
 public interface GameMapper {
     @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
     @Mapping(target = "kills", source = "kills", qualifiedByName = "killsToKillsId")
-    @Mapping(target = "players", source = "players", qualifiedByName = "playersToPlayersId")
+    @Mapping(target = "players", source = "players", qualifiedByName = "playersToPlayersIds")
     GameDTO gameToGameDTO(Game game);
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
     Game gamePutDTOtoGame(GamePutDTO gamePutDTO);
     Collection<GameDTO> gameToGameDTO(Collection<Game> game);
-    @Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
+
+    //@Mapping(target = "squads", source = "squads", qualifiedByName = "squadsToSquadsId")
     GameIdViewDTO gameToGameIdViewDTO(Game game);
 
     @Named(value = "squadsToSquadsId")
@@ -49,7 +50,7 @@ public interface GameMapper {
                 .collect(Collectors.toSet());
     }
 
-    @Named(value = "playersToPlayersId")
+    @Named(value = "playersToPlayersIds")
     default Set<Integer> map2(Set<Player> value) {
         if (value == null)
             return null;

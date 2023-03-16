@@ -2,6 +2,8 @@ package no.noroff.HvZ.models.dto.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import no.noroff.HvZ.models.dto.squad.SquadDTO;
+
 import java.util.Date;
 
 import java.util.Set;
