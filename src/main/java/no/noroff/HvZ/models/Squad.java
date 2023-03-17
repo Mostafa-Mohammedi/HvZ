@@ -18,13 +18,17 @@ public class Squad {
     @Column(nullable = false)
     private String name;
 
+
+    @Column(nullable = false)
+    private int gameRef;
+
     @JsonIgnore
     @OneToMany(mappedBy = "squad")
     private Set<Player> players;
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "game_id", nullable = false)
+    @JoinColumn(name = "game_id")
     private Game game;
 
     @OneToOne
