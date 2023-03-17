@@ -59,7 +59,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/chat/**").permitAll()
 
                                  */
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 ).oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
 
         return httpSecurity.build();
