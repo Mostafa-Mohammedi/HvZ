@@ -4,7 +4,6 @@ COPY . .
 RUN gradle bootJar
 
 
-
 FROM amazoncorretto:17-alpine AS runtime
 WORKDIR /app
 
