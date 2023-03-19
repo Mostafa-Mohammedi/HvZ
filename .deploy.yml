@@ -22,9 +22,9 @@ name: CI/CD Pipeline
 # Definerer at pipeline skal kjøre når det skjer en endring på hovedgrenen (main)
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 # Definerer jobben "Build"
 # Dette er en jobb som bygger et Docker-bilde av applikasjonen vår
