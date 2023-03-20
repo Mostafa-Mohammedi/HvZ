@@ -1,22 +1,31 @@
 package no.noroff.HvZ.services.squad;
 
+import no.noroff.HvZ.models.Game;
+import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
 import no.noroff.HvZ.models.exceptions.squad.SquadNotFoundException;
+import no.noroff.HvZ.repositories.GameRepository;
+import no.noroff.HvZ.repositories.PlayerRepository;
 import no.noroff.HvZ.repositories.SquadRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 @Service
 public class SquadServiceImpl implements SquadService{
     private final SquadRepository squadRepository;
-
-    public SquadServiceImpl(SquadRepository squadRepository) {
+    private final PlayerRepository playerRepository;
+    private final GameRepository gameRepository;
+    public SquadServiceImpl(SquadRepository squadRepository, PlayerRepository playerRepository, GameRepository gameRepository) {
         this.squadRepository = squadRepository;
+        this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Override
     public Squad add(Squad entity) {
+        entity.setGame(gameRepository.findById(entity.getGameRef()).get());
         return squadRepository.save(entity);
     }
 

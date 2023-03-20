@@ -17,6 +17,7 @@ public class SquadDTO {
     private int id;
 
     private String name;
+    private int gameRef;
     private Set<PlayerDTO> players;
     private Integer game;
 }
