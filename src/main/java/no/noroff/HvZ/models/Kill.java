@@ -15,7 +15,8 @@ public class Kill {
     private String story;
     private double lat;
     private double lng;
-
+    private int playerRef;
+    private int gameRef;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "game_id")
