@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 public class SquadServiceImpl implements SquadService{
@@ -49,24 +47,6 @@ public class SquadServiceImpl implements SquadService{
     @Override
     public Squad findById(Integer id) {
         return squadRepository.findById(id).orElseThrow(() -> new SquadNotFoundException(id));
-    }
-
-    @Override
-    public Collection<Player> getPlayers(Integer squad_id){
-        return squadRepository.findById(squad_id).get().getPlayers();
-    }
-
-    @Override
-    public void updatePlayers(int squadId, int[] playerIds) {
-        Squad squad= squadRepository.findById(squadId).get();
-        Set<Player> playerList = new HashSet<>();
-
-        for (int id : playerIds){
-            Player p = playerRepository.findById(id).get();
-            p.setSquad(squad);
-            playerRepository.save(p);
-            playerList.add(p);
-        }
     }
 
     @Override

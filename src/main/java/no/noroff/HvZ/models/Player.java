@@ -45,4 +45,11 @@ public class Player {
     private Squad squad;
     @OneToOne(mappedBy = "player")
     private SquadMember squadMember;
+
+
+    @OneToMany(mappedBy = "player")
+    private Set<Kill> kills;
+
+
+
 }

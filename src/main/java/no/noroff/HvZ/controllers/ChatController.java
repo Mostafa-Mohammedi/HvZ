@@ -11,7 +11,6 @@ import no.noroff.HvZ.models.Chat;
 import no.noroff.HvZ.models.dto.chat.ChatDTO;
 import no.noroff.HvZ.models.dto.chat.ChatPostDTO;
 import no.noroff.HvZ.models.dto.chat.ChatPutDTO;
-import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.services.chat.ChatService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;

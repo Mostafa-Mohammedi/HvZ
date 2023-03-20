@@ -6,9 +6,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import no.noroff.HvZ.mappers.PlayerMapper;
 import no.noroff.HvZ.mappers.SquadMapper;
+import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
+import no.noroff.HvZ.models.dto.chat.ChatDTO;
+import no.noroff.HvZ.models.dto.chat.ChatPutDTO;
+import no.noroff.HvZ.models.dto.kill.KillDTO;
+import no.noroff.HvZ.models.dto.player.PlayerPostDTO;
+import no.noroff.HvZ.models.dto.player.PlayerUpdateDTO;
 import no.noroff.HvZ.models.dto.squad.SquadDTO;
 import no.noroff.HvZ.models.dto.squad.SquadPostDTO;
 import no.noroff.HvZ.models.dto.squad.SquadPutDTO;
@@ -32,12 +37,9 @@ public class SquadController {
     private final SquadService squadService;
     private final SquadMapper squadMapper;
 
-    private final PlayerMapper playerMapper;
-
-    public SquadController(SquadService squadService, SquadMapper squadMapper, PlayerMapper playerMapper) {
+    public SquadController(SquadService squadService, SquadMapper squadMapper) {
         this.squadService = squadService;
         this.squadMapper = squadMapper;
-        this.playerMapper = playerMapper;
     }
 
     @Operation(summary = "Gets squad by ID")
@@ -79,17 +81,6 @@ public class SquadController {
     public ResponseEntity findAll(){
         return ResponseEntity.ok(squadMapper.squadToSquadDTO(squadService.findAll()));
 
-    }
-
-    @GetMapping("{id}/players")
-    public ResponseEntity getPlayers(@PathVariable Integer id){
-        return ResponseEntity.ok(playerMapper.playerToPlayerDTO(squadService.getPlayers(id)));
-    }
-
-    @PutMapping("{id}/players")
-    public ResponseEntity updatePlayers(@PathVariable Integer id, @RequestBody int[] playerIds){
-        squadService.updatePlayers(id, playerIds);
-        return ResponseEntity.noContent().build();
     }
 
     @PostMapping

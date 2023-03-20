@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.net.URI;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 @RestController
 @RequestMapping(path = "api/v1/players")
 public class PlayerController {
@@ -150,7 +150,7 @@ public class PlayerController {
             )
     })
     @PutMapping("{id}/checkIn")
-    public ResponseEntity CheckIn(@RequestBody PlayerCheckInDTO playerCheckInDTO, @PathVariable Integer id){
+    public ResponseEntity CheckIn(PlayerCheckInDTO playerCheckInDTO, @PathVariable Integer id){
         playerService.playerCheckIn(playerMapper.playerCheckInDTOtoPlayer(playerCheckInDTO), id);
         return ResponseEntity.noContent().build();
     }

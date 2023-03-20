@@ -17,4 +17,13 @@ Insert into mission (description, end_time, is_human_visible, is_zombie_visible,
 insert into chat (chat_time, is_human_global, is_zombie_global, message) values('2022', false, true, 'dette er en chat');
 INSERT INTO kill (lat, lng, story, time_of_death) VALUES (59.93005486381374,10.755885901232528,'livet suger', '1234');
 UPDATE kill SET game_id = 1 WHERE id = 2;
+insert into chat (chat_time, is_human_global, is_zombie_global, message, game_id) values('2022', false, true, 'dette er en chat', 1);
+insert into chat (chat_time, is_human_global, is_zombie_global, message, game_id) values('2022', false, true, 'dette er en chat2', 1);
+insert into chat (chat_time, is_human_global, is_zombie_global, message, game_id) values('2022', false, true, 'dette er en chat3', 1);
+
+
+INSERT INTO kill (lat, lng, story, time_of_death) VALUES (1.222, 2.2222, 'livet suger', '1234');
+
+UPDATE kill SET player_id = 2 WHERE id = 1;
+UPDATE player SET squad_id = 1 WHERE id = 2
 

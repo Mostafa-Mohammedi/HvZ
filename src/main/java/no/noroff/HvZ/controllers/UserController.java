@@ -29,8 +29,8 @@ public class UserController {
         this.userService = userService;
         this.userMapper = userMapper;
     }
-    @CrossOrigin(origins = "http://localhost:8080")
-    @GetMapping("/getAllUser")
+//    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping()
     @Operation(summary = "Gets all the user")
     @ApiResponses(value = {
             @ApiResponse(
