@@ -51,7 +51,6 @@ public class ChatServiceImpl implements ChatService {
         List<String> chats = chatRepository.findById(entity.getId()).get().getChats();
         int gameRef = chatRepository.findById(entity.getId()).get().getGameRef();
         pusher.trigger("hvz-noroff", "chat-event", Collections.singletonMap("message", entity.getChats().get(0)));
-
         chats.add(entity.getChats().get(0));
         entity.setChats(chats);
         entity.setGameRef(gameRef);

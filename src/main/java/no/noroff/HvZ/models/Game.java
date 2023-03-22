@@ -50,15 +50,13 @@ public class Game {
     @OneToOne(mappedBy = "game")
     private Chat chat;
 
-    /*
     @JsonIgnore
     @OneToOne(mappedBy = "game")
     private ZombieChat zombieChat;
-
     @JsonIgnore
     @OneToOne(mappedBy = "game")
     private HumanChat humanChat;
-    */
+
 
     @OneToOne(mappedBy = "game", fetch = FetchType.LAZY)
     private SquadMember squadMember;

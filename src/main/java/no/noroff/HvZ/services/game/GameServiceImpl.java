@@ -25,12 +25,14 @@ public class GameServiceImpl implements GameService{
 
     private final KillRepository killRepository;
     private final SquadRepository squadRepository;
+    private final ChatRepository chatRepository;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository, SquadRepository squadRepository) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository, SquadRepository squadRepository, ChatRepository chatRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
         this.killRepository = killRepository;
         this.squadRepository = squadRepository;
+        this.chatRepository = chatRepository;
     }
 
     @SneakyThrows
