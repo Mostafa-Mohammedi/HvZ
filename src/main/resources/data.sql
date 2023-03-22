@@ -13,4 +13,3 @@ INSERT INTO player (is_human, is_patient_zero, bite_code, user_id, game_id,lat, 
 INSERT INTO player (is_human, is_patient_zero, bite_code, user_id, game_id,lat, lng) VALUES (true, true, 'something', 2, 2,0,0);
 Insert into mission (description, end_time, is_human_visible, is_zombie_visible, name, start_time) values('warzone', '2022', false, true, 'testing war zone', '2021' );
 UPDATE player SET squad_id = 1 WHERE id = 2
-
