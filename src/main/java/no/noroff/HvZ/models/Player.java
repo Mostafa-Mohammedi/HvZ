@@ -35,10 +35,6 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-
-    @OneToMany(mappedBy = "player")
-    private Set<Chat> chat;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "squad_id")

@@ -2,6 +2,7 @@ package no.noroff.HvZ.models.dto.game;
 
 import lombok.Getter;
 import lombok.Setter;
+import no.noroff.HvZ.models.dto.chat.ChatDTO;
 
 import java.util.Date;
 
@@ -24,5 +25,5 @@ public class GameDTO {
     private Set<Integer> players;
     private Set<Integer> squads;
     private Set<Integer> kills;
-    private Collection<Integer> chats;
+    private ChatDTO chat;
 }

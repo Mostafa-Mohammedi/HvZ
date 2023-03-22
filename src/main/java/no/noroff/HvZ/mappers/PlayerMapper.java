@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 public interface PlayerMapper {
     @Mapping(target = "user", source = "user.id")
     @Mapping(target = "game", source = "game.id")
-    @Mapping(target = "chat", source = "chat", qualifiedByName = "chatToPlayer")
 
     PlayerDTO playerToPlayerDTO(Player player);
     Collection<PlayerDTO> playerToPlayerDTO(Collection<Player> player);
@@ -26,13 +25,4 @@ public interface PlayerMapper {
     Player playerPostDtoToPlayer(PlayerPostDTO playerPostDTO);
     Player playerUpdateDtoToPlayer(PlayerUpdateDTO playerUpdateDTO);
     Player playerCheckInDTOtoPlayer(PlayerCheckInDTO playerCheckInDTO);
-
-    @Named(value = "chatToPlayer")
-    default Set<Integer> map(Set<Chat> value) {
-        if (value == null)
-            return null;
-        return value.stream()
-                .map(s -> s.getId())
-                .collect(Collectors.toSet());
-    }
 }

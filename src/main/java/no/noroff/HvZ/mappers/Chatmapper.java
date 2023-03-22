@@ -14,7 +14,6 @@ public interface Chatmapper {
     ChatDTO chatToChatDTO(Chat chat);
     Chat ChatPostDTO(ChatPostDTO chatPostDTO);
     Chat ChatPutDTO(ChatPutDTO chatPutDTO);
-
     Collection<Chat> chatToChatDTOList(Collection<Chat> chat);
 
 

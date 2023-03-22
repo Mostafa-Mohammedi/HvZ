@@ -5,6 +5,7 @@ import lombok.Setter;
 import no.noroff.HvZ.models.Kill;
 import no.noroff.HvZ.models.Player;
 import no.noroff.HvZ.models.Squad;
+import no.noroff.HvZ.models.dto.chat.ChatDTO;
 import no.noroff.HvZ.models.dto.kill.KillDTO;
 import no.noroff.HvZ.models.dto.player.PlayerDTO;
 import no.noroff.HvZ.models.dto.squad.SquadDTO;
@@ -25,4 +26,5 @@ public class GameIdViewDTO {
     private Set<PlayerDTO> players;
     private Set<SquadDTO> squads;
     private Set<KillDTO> kills;
+    private ChatDTO chat;
 }

@@ -24,7 +24,6 @@ public interface GameMapper {
     @Mapping(target = "kills", source = "kills", qualifiedByName = "killsToKillsId")
 
     @Mapping(target = "players", source = "players", qualifiedByName = "playersToPlayersIds")
-    @Mapping(target = "chats", source = "chats", qualifiedByName = "chatsToId")
 
     GameDTO gameToGameDTO(Game game);
     Game gamePostDTOtoGame(GamePostDTO gamePostDTO);
@@ -59,14 +58,6 @@ public interface GameMapper {
             return null;
         return value.stream()
                 .map(s -> s.getId())
-                .collect(Collectors.toSet());
-    }
-    @Named(value = "chatsToId")
-    default Collection<Integer> chatList(Collection<Chat> value) {
-        if (value == null)
-            return null;
-        return value.stream()
-                .map(Chat::getId)
                 .collect(Collectors.toSet());
     }
 

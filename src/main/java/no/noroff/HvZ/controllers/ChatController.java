@@ -1,5 +1,7 @@
 package no.noroff.HvZ.controllers;
 
+import com.pusher.rest.Pusher;
+import com.pusher.rest.data.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping(path = "api/v1/chat")
 public class ChatController {
-
 
     private ChatService chatService;
     private Chatmapper chatMapper;
