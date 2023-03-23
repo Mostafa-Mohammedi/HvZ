@@ -28,7 +28,6 @@ import java.net.URI;
 public class PlayerController {
     private final PlayerService playerService;
     private final PlayerMapper playerMapper;
-
     public PlayerController(PlayerService playerService, PlayerMapper playerMapper) {
         this.playerService = playerService;
         this.playerMapper = playerMapper;
@@ -68,16 +67,13 @@ public class PlayerController {
                     }
             )
     })
-
-
-
     @GetMapping
     public ResponseEntity findAll() {
         return ResponseEntity.ok(playerMapper.playerToPlayerDTO(playerService.findAll()));
     }
 
 
-    @Operation(summary = "Adds a player")
+    @Operation(summary = "Adds a new player")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -94,8 +90,6 @@ public class PlayerController {
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-
-
     @PostMapping
     public ResponseEntity add(@RequestBody PlayerPostDTO playerDTO){
         Player player = playerService.add(playerMapper.playerPostDtoToPlayer(playerDTO));
@@ -103,11 +97,11 @@ public class PlayerController {
         return ResponseEntity.created(location).build();
     }
 
-    @Operation(summary = "Updates a player")
+    @Operation(summary = "Updates a player by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully updated player by ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
@@ -115,13 +109,11 @@ public class PlayerController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Player not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
-
-
     @PutMapping("{id}")
     public ResponseEntity update(@RequestBody PlayerUpdateDTO playerDTO, @PathVariable Integer id){
         if (id != playerDTO.getId()){
@@ -144,7 +136,7 @@ public class PlayerController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Player not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -155,11 +147,11 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
     
-    @Operation(summary = "Deletes a player")
+    @Operation(summary = "Deletes player by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully deleted player with given ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = PlayerDTO.class)))
@@ -167,7 +159,7 @@ public class PlayerController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Player not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )

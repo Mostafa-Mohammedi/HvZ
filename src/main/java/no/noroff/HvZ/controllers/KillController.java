@@ -69,7 +69,7 @@ public class KillController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Kill not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -79,7 +79,7 @@ public class KillController {
         return ResponseEntity.ok(killMapper.killMappedToKillDTO(killService.findAll()));
     }
 
-    @Operation(summary = "Adds kill")
+    @Operation(summary = "Adds a new kill")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -90,8 +90,8 @@ public class KillController {
                     }
             ),
             @ApiResponse(
-                    responseCode = "404",
-                    description = "Not Found",
+                    responseCode = "500",
+                    description = "Generic error, unexpected condition was encountered",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -104,7 +104,7 @@ public class KillController {
     }
 
 
-    @Operation(summary = "Deletes a kill by id")
+    @Operation(summary = "Deletes kill by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -127,7 +127,7 @@ public class KillController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Updates a kill by id")
+    @Operation(summary = "Updates kill by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
 @CrossOrigin("*")
 
 @RestController
-@RequestMapping(path = "api/v1/mission")
+@RequestMapping(path = "api/v1/missions")
 public class MissionController {
     private MissionMapper missionMapper;
     private MissionService missionService;
@@ -34,11 +34,11 @@ public class MissionController {
         this.missionService = missionService;
     }
 
-    @Operation(summary = "Get all mission")
+    @Operation(summary = "Gets mission by ID")
     @ApiResponses (value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "success",
+                    description = "Successfully fetched mission with given ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MissionDTO.class))
@@ -46,7 +46,7 @@ public class MissionController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Mission not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -60,11 +60,11 @@ public class MissionController {
 
 
     @GetMapping
-    @Operation(summary = "Get all mission")
+    @Operation(summary = "Gets all mission")
     @ApiResponses (value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "success",
+                    description = "Successfully fetched all missions",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MissionDTO.class))
@@ -72,7 +72,7 @@ public class MissionController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Missions not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -82,22 +82,20 @@ public class MissionController {
         return ResponseEntity.ok(missionMapper.missionToMissionDTOList(missionService.findAll()));
     }
 
-
-
     @PostMapping
-    @Operation(summary = "add a new mission")
+    @Operation(summary = "Adds a new mission")
     @ApiResponses( value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "successful",
+                    description = "Successfully added new mission",
                     content = {
                             @Content(mediaType = "application/json",
                             schema = @Schema(implementation = MissionDTO.class))
                     }
             ),
             @ApiResponse(
-                    responseCode = "404",
-                    description = "Could not find user",
+                    responseCode = "500",
+                    description = "Generic error, unexpected condition was encountered",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ProblemDetail.class))
@@ -107,21 +105,21 @@ public class MissionController {
     public ResponseEntity add(@RequestBody MissionPostDTO missionPostDTO) throws URISyntaxException {
         Mission mission = missionMapper.missionPostDTO(missionPostDTO);
         missionService.add(mission);
-        URI uri  = new URI("api/v1/mission/" + mission.getId());
+        URI uri  = new URI("api/v1/missions/" + mission.getId());
         return ResponseEntity.created(uri).build();
     }
 
 
     @PutMapping("{id}")
-    @Operation(summary = "Update mission")
+    @Operation(summary = "Updates mission by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "update mission"
+                    description = "Successfully updated mission with given ID"
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Could not find user",
+                    description = "Mission not found",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ProblemDetail.class))
@@ -140,11 +138,11 @@ public class MissionController {
             return ResponseEntity.noContent().build();
         }
     }
-    @Operation(summary = "Deletes a mission by id")
+    @Operation(summary = "Deletes mission by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully deleted mission with given ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MissionDTO.class))
@@ -152,7 +150,7 @@ public class MissionController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Mission not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -162,7 +160,4 @@ public class MissionController {
         missionService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
