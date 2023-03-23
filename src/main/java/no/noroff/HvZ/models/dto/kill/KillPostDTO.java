@@ -8,4 +8,6 @@ public class KillPostDTO {
     private String story;
     private double lat;
     private double lng;
+    private int playerRef;
+    private int gameRef;
 }

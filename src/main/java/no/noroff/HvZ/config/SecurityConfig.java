@@ -50,8 +50,10 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/api/v1/games").permitAll()
+                                .requestMatchers("/api/v1/games/**").permitAll()
+                                /*
                                 .requestMatchers("/api/v1/users/**" ).hasRole("HUMAN")
-                                /*.requestMatchers("/api/v1/games/**").permitAll()
                                 .requestMatchers("/api/v1/mission/**").permitAll()
                                 .requestMatchers("/api/v1/players/**").permitAll()
                                 .requestMatchers("/api/v1/squad/**").permitAll()

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 public interface ChatService extends CrudService<Chat, Integer> {
-
-
     @Override
     Chat findById(Integer id);
 

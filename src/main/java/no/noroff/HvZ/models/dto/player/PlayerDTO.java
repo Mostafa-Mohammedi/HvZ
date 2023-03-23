@@ -19,7 +19,6 @@ public class PlayerDTO {
     private Squad squad;
     private Integer user;
     private Integer game;
-    private Set<Integer> chat;
 
 
 

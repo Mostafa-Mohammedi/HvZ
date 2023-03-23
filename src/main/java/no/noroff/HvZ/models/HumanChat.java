@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-public class Chat {
+public class HumanChat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
