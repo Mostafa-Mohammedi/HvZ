@@ -24,9 +24,8 @@ import java.util.Collections;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "api/v1/chat")
+@RequestMapping(path = "api/v1/chats")
 public class ChatController {
-
     private ChatService chatService;
     private Chatmapper chatMapper;
 
@@ -36,11 +35,11 @@ public class ChatController {
     }
 
     @GetMapping()
-    @Operation(summary = "Get all chat")
+    @Operation(summary = "Gets all chats")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully fetched all chats",
                     content = {
                             @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = ChatDTO.class)))
@@ -48,7 +47,7 @@ public class ChatController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Chats Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -59,15 +58,12 @@ public class ChatController {
         return ResponseEntity.ok(chatMapper.chatToChatDTOList(chatService.findAll()));
     }
 
-
-
-
     @GetMapping("{id}")
-    @Operation(summary = "Gets Chat by ID")
+    @Operation(summary = "Gets chat by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully fetched chat with given ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ChatDTO.class))
@@ -75,7 +71,7 @@ public class ChatController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Chat Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -85,20 +81,37 @@ public class ChatController {
     }
 
     @PostMapping
+    @Operation(summary = "Adds a new chat")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Chat added successfully",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ChatDTO.class))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Generic error, unexpected condition was encountered",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
     public ResponseEntity add(@RequestBody ChatPostDTO chatPostDTO) throws URISyntaxException {
         Chat chat = chatMapper.ChatPostDTO(chatPostDTO);
         chatService.add(chat);
-        URI uri =  new URI("api/v1/chat/" + chat.getId());
+        URI uri =  new URI("api/v1/chats/" + chat.getId());
         return ResponseEntity.created(uri).build();
 
     }
 
     @PutMapping("{id}")
-    @Operation(summary = "Update Chat by ID")
+    @Operation(summary = "Update a chat by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "update chat",
+                    description = "Chat updated successfully",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ChatDTO.class))
@@ -106,7 +119,7 @@ public class ChatController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Chat Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -121,12 +134,11 @@ public class ChatController {
         }
     }
 
-
-    @Operation(summary = "Deletes a chat by id")
+    @Operation(summary = "Deletes chat by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Chat deleted successfully",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ChatDTO.class))
@@ -134,7 +146,7 @@ public class ChatController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Chat Not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )

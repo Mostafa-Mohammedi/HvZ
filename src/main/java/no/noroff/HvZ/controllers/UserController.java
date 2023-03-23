@@ -29,37 +29,46 @@ public class UserController {
         this.userService = userService;
         this.userMapper = userMapper;
     }
-//    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping()
     @Operation(summary = "Gets all users")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "successful fetched all user",
+                    description = "Successfully fetched all user",
                     content = {
                             @Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserDTO.class)
                             )
-
                     }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Users not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
             )
-
     })
     public ResponseEntity findAllUser() {
         return ResponseEntity.ok(userMapper.usertoUserDTOList(userService.findAll()));
     }
 
     @GetMapping("{id}")
-    @Operation(summary = "successful fetched user by id")
+    @Operation(summary = "Gets user by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "successful fetched user",
+                    description = "Successfully fetched user by given ID",
                     content = {
                             @Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserDTO.class)
                             )
                     }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "User not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
             )
     })
     public ResponseEntity findById(@PathVariable int id){
@@ -68,19 +77,19 @@ public class UserController {
 
 
     @PostMapping()
-    @Operation(summary = "added user for HvZ game")
+    @Operation(summary = "Adds a new user")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "created a user",
+                    description = "Successfully created a new user",
                     content = {
                             @Content(mediaType = "application/json",
                             schema = @Schema(implementation = UserDTO.class))
                     }
             ),
             @ApiResponse(
-                    responseCode = "404",
-                    description = "Could not find user",
+                    responseCode = "500",
+                    description = "Generic error, unexpected condition was encountered",
                     content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
@@ -90,19 +99,20 @@ public class UserController {
     public ResponseEntity addUser(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
         userService.add(user);
-        URI uri = new URI("api/v1/user" + user.getId());
+
+        URI uri = new URI("api/v1/users/" + user.getId());
        return ResponseEntity.created(uri).build();
     }
     @PutMapping("{id}")
-    @Operation(summary = "Update user")
+    @Operation(summary = "Update a user by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "update user"
+                    description = "Successfully updated user by id"
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Could not find user",
+                    description = "User not found",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ProblemDetail.class))
@@ -120,7 +130,22 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Deletes user by ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully deleted user by id"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "User not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    }
+            )
 
+    })
     @DeleteMapping("{id}")
     public ResponseEntity deleteUser(@PathVariable int id){
          userService.deleteById(id);
