@@ -1,10 +1,11 @@
 package no.noroff.HvZ.services.game;
 
-import lombok.SneakyThrows;
 import no.noroff.HvZ.models.*;
 import no.noroff.HvZ.models.exceptions.game.GameNotFoundException;
 import no.noroff.HvZ.repositories.*;
 import no.noroff.HvZ.services.chat.ChatService;
+import no.noroff.HvZ.services.humanChat.HumanChatService;
+import no.noroff.HvZ.services.zombieChat.ZombieChatService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,8 +23,10 @@ public class GameServiceImpl implements GameService{
     private final HumanChatRepository humanChatRepository;
     private final ZombieChatRepository zombieChatRepository;
     private final ChatService chatService;
+    private final HumanChatService humanChatService;
+    private final ZombieChatService zombieChatService;
 
-    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository, SquadRepository squadRepository, ChatRepository chatRepository, HumanChatRepository humanChatRepository, ZombieChatRepository zombieChatRepository, ChatService chatService) {
+    public GameServiceImpl(GameRepository gameRepository, PlayerRepository playerRepository, KillRepository killRepository, SquadRepository squadRepository, ChatRepository chatRepository, HumanChatRepository humanChatRepository, ZombieChatRepository zombieChatRepository, ChatService chatService, HumanChatService humanChatService, ZombieChatService zombieChatService) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
         this.killRepository = killRepository;
@@ -32,6 +35,8 @@ public class GameServiceImpl implements GameService{
         this.humanChatRepository = humanChatRepository;
         this.zombieChatRepository = zombieChatRepository;
         this.chatService = chatService;
+        this.humanChatService = humanChatService;
+        this.zombieChatService = zombieChatService;
     }
 
     @Override
@@ -42,15 +47,30 @@ public class GameServiceImpl implements GameService{
         entity.setDate(dtf.format(now));
         entity.setPlayerCount(0);
         gameRepository.save(entity);
+
         Chat chat = new Chat();
         chat.setGameRef(entity.getId());
         chat.setChats(new ArrayList<>());
         chat.setGame(entity);
         chatService.add(chat);
         chatRepository.save(chat);
-        System.out.println(chatRepository.findById(entity.getId()-2).get());
-        entity.setChat(chatRepository.findById(entity.getId()-2).get());
-        System.out.println("CREATING GAME");
+        entity.setChat(chatRepository.findById(entity.getId()).get());
+
+        HumanChat humanChat = new HumanChat();
+        humanChat.setGameRef(entity.getId());
+        humanChat.setChats(new ArrayList<>());
+        humanChat.setGame(entity);
+        humanChatService.add(humanChat);
+        humanChatRepository.save(humanChat);
+        entity.setHumanChat(humanChatRepository.findById(entity.getId()).get());
+
+        ZombieChat zombieChat = new ZombieChat();
+        zombieChat.setGameRef(entity.getId());
+        zombieChat.setChats(new ArrayList<>());
+        zombieChat.setGame(entity);
+        zombieChatService.add(zombieChat);
+        zombieChatRepository.save(zombieChat);
+        entity.setZombieChat(zombieChatRepository.findById(entity.getId()).get());
         return gameRepository.save(entity);
     }
 
