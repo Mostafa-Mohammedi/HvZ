@@ -17,8 +17,6 @@ public class User {
     private int id;
 
     private String username;
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Player> players;
 
+    private String idToken;
 }
