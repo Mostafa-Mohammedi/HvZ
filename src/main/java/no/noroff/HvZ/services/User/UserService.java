@@ -13,6 +13,6 @@ public interface UserService extends CrudService<User, Integer> {
 
     User add(User entity);
 
-
+    User findByIdToken(String idToken);
 
 }

@@ -38,6 +38,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByIdToken(String idToken){
+        Collection<User> users = userRepository.findAll();
+        for (User user : users){
+            if (user.getIdToken().equals(idToken)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Collection<User> findAll() {
         return userRepository.findAll();
     }

@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "api/v1/users")
+@RequestMapping(path = "api/v1/user")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
@@ -99,6 +99,7 @@ public class UserController {
     public ResponseEntity addUser(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
         userService.add(user);
+
         URI uri = new URI("api/v1/users/" + user.getId());
        return ResponseEntity.created(uri).build();
     }

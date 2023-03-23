@@ -14,21 +14,13 @@ import java.util.Collection;
 
 @Mapper(componentModel = "spring")
 public interface KillMapper {
-    @Mapping(target = "playerName", source = "player", qualifiedByName = "playerToPlayerName")
-    @Mapping(target = "squadName", source = "player", qualifiedByName = "playerToSquadName")
-    @Mapping(target = "biteCode", source = "player", qualifiedByName = "playerToBiteCode")
     KillDTO killMappedToKillDTO(Kill kill);
     Collection<KillDTO> killMappedToKillDTO(Collection<Kill> kill);
 
     Kill killPostDtoToKill(KillPostDTO killPostDTO);
     Kill killUpdateDtoToKill(KillUpdateDTO killUpdateDTO);
 
-    @Named(value = "playerToPlayerName")
-    default String playerToPlayerName(Player p){
-        if (p == null || p.getUser() == null)
-            return null;
-        return p.getUser().getUsername();
-    }
+
     @Named(value = "playerToSquadName")
     default String playerToSquadName(Player p){
         if (p == null || p.getSquad() == null)
