@@ -6,4 +6,6 @@ import lombok.Data;
 public class SquadPostDTO {
     private String name;
     private int gameRef;
+
+    private int[] playerIds;
 }

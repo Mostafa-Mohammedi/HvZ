@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class SquadServiceImpl implements SquadService{
@@ -26,6 +28,18 @@ public class SquadServiceImpl implements SquadService{
     @Override
     public Squad add(Squad entity) {
         entity.setGame(gameRepository.findById(entity.getGameRef()).get());
+        squadRepository.save(entity);
+
+        int[] playerIds = entity.getPlayerIds();
+        Set<Player> players = new HashSet<>();
+        for (int playerId : playerIds) {
+            players.add(playerRepository.findById(playerId).get());
+        }
+
+        players.forEach(s -> {
+            s.setSquad(entity);
+            playerRepository.save(s);
+        });
         return squadRepository.save(entity);
     }
 

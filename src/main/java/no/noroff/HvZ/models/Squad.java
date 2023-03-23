@@ -22,6 +22,7 @@ public class Squad {
     @Column(nullable = false)
     private int gameRef;
 
+    private int[] playerIds;
     @JsonIgnore
     @OneToMany(mappedBy = "squad")
     private Set<Player> players;

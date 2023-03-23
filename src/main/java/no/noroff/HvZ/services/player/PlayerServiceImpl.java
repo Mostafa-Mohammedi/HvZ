@@ -35,6 +35,7 @@ public class PlayerServiceImpl implements PlayerService {
         User user = userService.findByIdToken(entity.getUserTokenRef());
         Game game = gameRepository.findById(entity.getGameRef()).get();
         entity.setUsername(user.getUsername());
+        entity.setGame(game);
         return playerRepository.save(entity);
     }
 
