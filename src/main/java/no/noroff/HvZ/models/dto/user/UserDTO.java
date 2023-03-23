@@ -8,6 +8,5 @@ import java.util.Set;
 public class UserDTO {
     private int id;
     private String username;
-    //private Set<Integer> players;
-
+    private String idToken;
 }

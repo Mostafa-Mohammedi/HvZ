@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface PlayerMapper {
-    @Mapping(target = "user", source = "user.id")
     @Mapping(target = "game", source = "game.id")
 
     PlayerDTO playerToPlayerDTO(Player player);

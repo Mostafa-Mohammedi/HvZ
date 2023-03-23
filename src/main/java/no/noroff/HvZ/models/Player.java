@@ -25,12 +25,15 @@ public class Player {
     private double lat;
     private double lng;
     private boolean isPatientZero;
+    private String userTokenRef;
+
+    int gameRef;
+
+    private int squadRef;
+
     @Column(length = 50, nullable = false)
     private String biteCode;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "game_id")
