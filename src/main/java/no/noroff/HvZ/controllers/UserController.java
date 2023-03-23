@@ -87,11 +87,11 @@ public class UserController {
                     }
             )
     })
-    public ResponseEntity addUser(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
+    public ResponseEntity add(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
-        userService.add(user);
         URI uri = new URI("api/v1/user" + user.getId());
-       return ResponseEntity.created(uri).build();
+        System.out.println("ADDING USER:)");;
+        return ResponseEntity.created(uri).build();
     }
     @PutMapping("{id}")
     @Operation(summary = "Update user")
@@ -117,6 +117,16 @@ public class UserController {
         else{
             userService.update(userMapper.updateUserToDTO(updateUserDTO));
             return ResponseEntity.noContent().build();
+        }
+    }
+
+    @GetMapping("/token/{idToken}")
+    public ResponseEntity findUserByIdToken(@PathVariable String idToken){
+        User user = userService.findByIdToken(idToken);
+        if (user == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(userMapper.userToUserDTO(userService.findByIdToken(idToken)));
         }
     }
 
