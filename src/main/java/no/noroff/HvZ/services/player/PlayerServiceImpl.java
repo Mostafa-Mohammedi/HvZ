@@ -32,6 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Player add(Player entity) {
+        System.out.println(entity);
         User user = userService.findByIdToken(entity.getUserTokenRef());
         Game game = gameRepository.findById(entity.getGameRef()).get();
         entity.setUsername(user.getUsername());

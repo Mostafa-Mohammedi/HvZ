@@ -90,7 +90,7 @@ public class UserController {
     public ResponseEntity add(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
         URI uri = new URI("api/v1/user" + user.getId());
-        System.out.println("ADDING USER:)");;
+        userService.add(user);
         return ResponseEntity.created(uri).build();
     }
     @PutMapping("{id}")
