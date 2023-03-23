@@ -98,6 +98,7 @@ public class UserController {
     })
     public ResponseEntity add(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
+        userService.add(user);
         URI uri = new URI("api/v1/user" + user.getId());
         return ResponseEntity.created(uri).build();
     }
