@@ -96,13 +96,13 @@ public class UserController {
                     }
             )
     })
-    public ResponseEntity addUser(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
+    public ResponseEntity add(@RequestBody PostUserDTO postUserDTO) throws URISyntaxException {
         User user = userMapper.postUserToDTO(postUserDTO);
-        userService.add(user);
-
-        URI uri = new URI("api/v1/users/" + user.getId());
-       return ResponseEntity.created(uri).build();
+        URI uri = new URI("api/v1/user" + user.getId());
+        return ResponseEntity.created(uri).build();
     }
+    
+    
     @PutMapping("{id}")
     @Operation(summary = "Update a user by ID")
     @ApiResponses(value = {
@@ -130,6 +130,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/token/{idToken}")
+    public ResponseEntity findUserByIdToken(@PathVariable String idToken){
+        User user = userService.findByIdToken(idToken);
+        if (user == null){
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(userMapper.userToUserDTO(userService.findByIdToken(idToken)));
+        }
+    }
+
     @Operation(summary = "Deletes user by ID")
     @ApiResponses(value = {
             @ApiResponse(
@@ -144,7 +154,6 @@ public class UserController {
                                     schema = @Schema(implementation = ProblemDetail.class))
                     }
             )
-
     })
     @DeleteMapping("{id}")
     public ResponseEntity deleteUser(@PathVariable int id){
