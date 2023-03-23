@@ -30,10 +30,8 @@ import java.net.URI;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping(path = "api/v1/squad")
+@RequestMapping(path = "api/v1/squads")
 public class SquadController {
-
-
     private final SquadService squadService;
     private final SquadMapper squadMapper;
 
@@ -46,7 +44,7 @@ public class SquadController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully fetched squad with given ID",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SquadDTO.class))
@@ -54,7 +52,7 @@ public class SquadController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Not Found",
+                    description = "Squad not Found",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
@@ -69,12 +67,15 @@ public class SquadController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully fetched all squads",
                     content = {
                             @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = SquadDTO.class)))
                     }
-            )
+            ),
+            @ApiResponse(responseCode = "404", description = "Squad not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class)))
     })
 
     @GetMapping
@@ -84,33 +85,31 @@ public class SquadController {
     }
 
     @PostMapping
-    @Operation(summary = "Create Squad")
+    @Operation(summary = "Adds a new squad")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Success",
+                    description = "Successfully created a new squad in game",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = SquadDTO.class))
                     }
             ),
             @ApiResponse(
-                    responseCode = "404",
-                    description = "Not Found",
+                    responseCode = "500",
+                    description = "Generic error, unexpected condition was encountered",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ProblemDetail.class))
             )
     })
     public ResponseEntity add(@RequestBody SquadPostDTO squadPostDTO){
         Squad squad = squadService.add(squadMapper.squadPostDTO(squadPostDTO));
-        URI location = URI.create("api/v1/squad/" + squad.getId());
+        URI location = URI.create("api/v1/squads/" + squad.getId());
         return ResponseEntity.created(location).build();
     }
 
-
-
     @PutMapping("{id}")
-    @Operation(summary = "Update Chat by ID")
+    @Operation(summary = "Update squad by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -139,7 +138,7 @@ public class SquadController {
 
 
 
-    @Operation(summary = "Deletes a Squad by id")
+    @Operation(summary = "Deletes a Squad by ID")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
