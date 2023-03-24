@@ -40,6 +40,16 @@ public class SquadMemberServiceImp implements SquadMemberService {
 
     @Override
     public void deleteById(Integer id) {
+        var squadMember = squadMemberRepository.findById(id).orElseThrow(() -> new SquadMemberNotFound(id));
+        if(squadMember.getGame() != null){
+            squadMember.setGame(null);
+        }
+        if(squadMember.getPlayer() != null){
+            squadMember.setPlayer(null);
+        }
+        if(squadMember.getSquad() != null){
+            squadMember.setSquad(null);
+        }
         squadMemberRepository.deleteById(id);
 
     }

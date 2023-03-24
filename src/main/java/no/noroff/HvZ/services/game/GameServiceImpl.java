@@ -82,8 +82,63 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public void deleteById(Integer id) {
-        gameRepository.deleteById(id);
+        try {
+            var game = gameRepository.findById(id).orElseThrow(() -> new GameNotFoundException(id));
+            var listOfPlayer = game.getPlayers();
+            var squadMember = game.getSquadMember();
+            var listOfSquads = game.getSquads();
+            var listofKills = game.getKills();
+            var chat = game.getChat();
+
+            if (listOfPlayer != null) {
+                Iterator<Player> players = listOfPlayer.iterator();
+                while (players.hasNext()) {
+                    Player player = players.next();
+                    player.setGame(null);
+                    players.remove();
+                }
+            }
+
+            if (listOfSquads != null) {
+                Iterator<Squad> squads = listOfSquads.iterator();
+                while (squads.hasNext()) {
+                    var squad = squads.next();
+                    squad.setGame(null);
+                    squads.remove();
+                }
+            }
+
+            if (listofKills != null) {
+                Iterator<Kill> kills = listofKills.iterator();
+                while (kills.hasNext()) {
+                    var kill = kills.next();
+                    kill.setGame(null);
+                    kills.remove();
+                }
+            }
+
+            if (squadMember != null) {
+                game.setSquadMember(null);
+            }
+
+            if (chat != null) {
+                game.setChat(null);
+            }
+
+            if (game.getZombieChat() != null) {
+                game.setZombieChat(null);
+            }
+
+            if (game.getHumanChat() != null) {
+                game.setHumanChat(null);
+            }
+
+            gameRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete game with id: " + id, e);
+        }
     }
+
 
     @Override
     public boolean exists(Integer id) {
