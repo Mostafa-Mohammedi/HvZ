@@ -63,6 +63,11 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void deleteById(Integer id) {
+        var chat = chatRepository.findById(id).orElseThrow(() -> new ChatNotFoundException(id));
+        if(chat.getGame() != null){
+            chat.setGame(null);
+        }
+
         chatRepository.deleteById(id);
     }
 

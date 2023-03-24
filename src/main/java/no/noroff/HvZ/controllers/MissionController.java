@@ -14,6 +14,7 @@ import no.noroff.HvZ.repositories.MissionRepository;
 import no.noroff.HvZ.services.mission.MissionService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +84,7 @@ public class MissionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('roles')")
     @Operation(summary = "Adds a new mission")
     @ApiResponses( value = {
             @ApiResponse(
@@ -156,6 +158,8 @@ public class MissionController {
             )
     })
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('roles')")
+
     public ResponseEntity delete(@PathVariable Integer id){
         missionService.deleteById(id);
         return ResponseEntity.noContent().build();

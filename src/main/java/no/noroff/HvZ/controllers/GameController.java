@@ -20,6 +20,7 @@ import no.noroff.HvZ.services.player.PlayerService;
 import no.noroff.HvZ.services.squad.SquadService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -118,6 +119,7 @@ public class GameController {
             )
     })
     @PostMapping
+    @PreAuthorize("hasRole('roles')")
     public ResponseEntity add(@RequestBody GamePostDTO entity) throws URISyntaxException {
         Game game = gameMapper.gamePostDTOtoGame(entity);
         gameService.add(game);
@@ -143,6 +145,7 @@ public class GameController {
             )
     })
     @PutMapping("{id}")
+    @PreAuthorize("hasRole('roles')")
     public ResponseEntity update(@RequestBody GamePutDTO entity, @PathVariable Integer id) {
         if (id != entity.getId())
             return ResponseEntity.badRequest().build();
@@ -288,5 +291,26 @@ public class GameController {
     public ResponseEntity updateSquads(@PathVariable Integer id, @RequestBody int[] squadIds){
         gameService.updateSquads(id, squadIds);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Deletes game by ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Successfully deleted game with given ID"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Game not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProblemDetail.class))
+            )
+    })
+
+    @DeleteMapping("{id}/game")
+    @PreAuthorize("hasRole('roles')")
+    public ResponseEntity deleteGame(@PathVariable Integer id){
+       gameService.deleteById(id);
+       return  ResponseEntity.noContent().build();
     }
 }

@@ -41,6 +41,10 @@ public class MissionServiceImpl implements MissionService{
 
     @Override
     public void deleteById(Integer id) {
+        var mission = missionRepository.findById(id).orElseThrow(() -> new MissionNotFoundException(id));
+        if(mission.getGame() != null){
+            mission.setGame(null);
+        }
         missionRepository.deleteById(id);
     }
 
