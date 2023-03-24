@@ -85,10 +85,10 @@ public class GameServiceImpl implements GameService{
         try {
             var game = gameRepository.findById(id).orElseThrow(() -> new GameNotFoundException(id));
             var listOfPlayer = game.getPlayers();
-            var squadMember = game.getSquadMember();
             var listOfSquads = game.getSquads();
             var listofKills = game.getKills();
             var chat = game.getChat();
+
 
             if (listOfPlayer != null) {
                 Iterator<Player> players = listOfPlayer.iterator();
@@ -117,21 +117,14 @@ public class GameServiceImpl implements GameService{
                 }
             }
 
-            if (squadMember != null) {
-                game.setSquadMember(null);
-            }
+            chat.setGame(null);
+            game.setChat(null);
 
-            if (chat != null) {
-                game.setChat(null);
-            }
+            game.getHumanChat().setGame(null);
+            game.setHumanChat(null);
 
-            if (game.getZombieChat() != null) {
-                game.setZombieChat(null);
-            }
-
-            if (game.getHumanChat() != null) {
-                game.setHumanChat(null);
-            }
+            game.getZombieChat().setGame(null);
+            game.setZombieChat(null);
 
             gameRepository.deleteById(id);
         } catch (Exception e) {
