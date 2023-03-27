@@ -11,4 +11,6 @@ public class PlayerUpdateDTO {
     private boolean isHuman;
     private int squadRef;
 
+    private String username;
+
 }

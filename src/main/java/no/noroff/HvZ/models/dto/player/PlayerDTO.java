@@ -13,6 +13,7 @@ public class PlayerDTO {
     private boolean isHuman;
 
     private String username;
+    private String userTokenRef;
     private String lastCheckInTime;
     private boolean isPatientZero;
     private double lat;
