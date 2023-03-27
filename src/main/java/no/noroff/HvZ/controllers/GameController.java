@@ -119,7 +119,7 @@ public class GameController {
             )
     })
     @PostMapping
-    @PreAuthorize("hasRole('roles')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity add(@RequestBody GamePostDTO entity) throws URISyntaxException {
         Game game = gameMapper.gamePostDTOtoGame(entity);
         gameService.add(game);
@@ -145,7 +145,7 @@ public class GameController {
             )
     })
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('roles')")
+    @PreAuthorize("hasRole('Admin')")
     public ResponseEntity update(@RequestBody GamePutDTO entity, @PathVariable Integer id) {
         if (id != entity.getId())
             return ResponseEntity.badRequest().build();

@@ -6,6 +6,9 @@ import lombok.Data;
 
 @Data
 @Entity
+/**
+ * Kill  class represents a player kill in the HvZ game
+ */
 public class Kill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +18,13 @@ public class Kill {
     private String story;
     private double lat;
     private double lng;
+    /**
+     * player id
+     */
     private int playerRef;
+    /**
+     * game id
+     */
     private int gameRef;
     @JsonIgnore
     @ManyToOne

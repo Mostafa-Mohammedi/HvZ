@@ -25,10 +25,16 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
+    /**
+     *
+     * @param userService the user service to be used in the controller where the business logic lies
+     * @param userMapper the user mapper  where the mapping between the DTO and the entities lies
+     */
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
+
     @GetMapping()
     @Operation(summary = "Gets all users")
     @ApiResponses(value = {
@@ -131,7 +137,26 @@ public class UserController {
         }
     }
 
+
+
+
     @GetMapping("/token/{idToken}")
+    @Operation(summary = "Get user by token")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully found user by token"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "User not found",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ProblemDetail.class))
+                    }
+            )
+
+    })
     public ResponseEntity findUserByIdToken(@PathVariable String idToken){
         User user = userService.findByIdToken(idToken);
         if (user == null){
