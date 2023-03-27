@@ -24,6 +24,7 @@ public class Game {
 
     @Column(nullable = false)
     private String gameType;
+
     @Column(nullable = false)
     private String description;
 
@@ -32,6 +33,10 @@ public class Game {
     private String status;
 
     private String date;
+
+    private double lat;
+    private double lng;
+    private String map;
 
     @Column(nullable = false)
     private int maxPlayers;

@@ -23,6 +23,9 @@ public class GameDTO {
     private String description;
     private String status;
     private String date;
+    private double lat;
+    private double lng;
+    private String map;
     private int maxPlayers;
     private int playerCount;
     private Set<Integer> players;

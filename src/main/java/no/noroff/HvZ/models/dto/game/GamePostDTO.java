@@ -10,4 +10,7 @@ public class GamePostDTO {
     private String description;
     private String gameType;
     private int maxPlayers;
+    private double lat;
+    private double lng;
+    private String map;
 }
