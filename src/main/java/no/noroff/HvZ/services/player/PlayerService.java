@@ -8,4 +8,5 @@ public interface PlayerService extends CrudService<Player, Integer> {
     Collection<Player> findAll();
 
     Player playerCheckIn(Player entity, Integer id);
+    void deleteByToken(String token);
 }

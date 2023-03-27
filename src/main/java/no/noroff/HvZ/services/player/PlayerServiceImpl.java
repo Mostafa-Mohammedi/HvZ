@@ -13,6 +13,7 @@ import no.noroff.HvZ.services.User.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -62,6 +63,19 @@ public class PlayerServiceImpl implements PlayerService {
         playerRepository.deleteById(id);
     }
 
+    @Override
+    public void deleteByToken(String token){
+        Collection<Player> players = findAll();
+        loop:
+        for (Player player : players) {
+            if (player.getUserTokenRef().equals(token)){
+                player.setGame(null);
+                player.setSquad(null);
+                playerRepository.deleteById(player.getId());
+                break loop;
+            }
+        }
+    }
     @Override
     public boolean exists(Integer id) {
         return playerRepository.existsById(id);

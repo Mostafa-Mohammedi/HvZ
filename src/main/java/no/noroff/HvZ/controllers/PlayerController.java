@@ -173,4 +173,10 @@ public class PlayerController {
         playerService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("deleteByToken/{token}")
+    public ResponseEntity deleteByToken(@PathVariable String token) {
+        playerService.deleteByToken(token);
+        return ResponseEntity.noContent().build();
+    }
 }
