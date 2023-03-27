@@ -6,6 +6,9 @@ import lombok.Data;
 
 @Data
 @Entity
+/**
+ * Squad member represents the player in the squad
+ */
 public class SquadMember {
 
     @Id
