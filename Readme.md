@@ -14,7 +14,7 @@ Library:
 
 - Lombok
 - JPA
-- Spring security 
+- Spring security  
 
 ## Classes
 
