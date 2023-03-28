@@ -59,6 +59,7 @@ public class PlayerServiceImpl implements PlayerService {
     public void deleteById(Integer id) {
         Player player  = playerRepository.findById(id).get();
         player.setGame(null);
+        player.setKills(null);
         player.setSquad(null);
         playerRepository.deleteById(id);
     }

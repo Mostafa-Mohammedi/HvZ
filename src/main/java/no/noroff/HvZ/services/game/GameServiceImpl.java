@@ -76,8 +76,14 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public Game update(Game entity) {
-        entity.setDate(findById(entity.getId()).getDate());
-        return gameRepository.save(entity);
+        Game game = findById(entity.getId());
+        game.setTitle(entity.getTitle());
+        game.setStatus(entity.getStatus());
+        game.setDescription(entity.getDescription());
+        game.setGameType(entity.getGameType());
+        game.setMaxPlayers(entity.getMaxPlayers());
+        //entity.setDate(findById(entity.getId()).getDate());
+        return gameRepository.save(game);
     }
 
     @Override
