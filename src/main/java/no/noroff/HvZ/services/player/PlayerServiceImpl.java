@@ -52,7 +52,6 @@ public class PlayerServiceImpl implements PlayerService {
             player.setSquad(null);
         }
         player.setHuman(entity.isHuman());
-        player.setUsername(entity.getUsername());
         return playerRepository.save(player);
     }
 
