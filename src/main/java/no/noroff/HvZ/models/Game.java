@@ -14,10 +14,14 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+/**
+ * Game class represents the game in the HvZ
+ */
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
 
     @Column(length = 50, nullable = false)
     private String title;

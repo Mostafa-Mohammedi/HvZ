@@ -157,7 +157,6 @@ public class SquadController {
             )
     })
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('roles')")
     public ResponseEntity delete(@PathVariable Integer id){
         squadService.deleteById(id);
         return ResponseEntity.noContent().build();

@@ -93,7 +93,6 @@ public class PlayerController {
             )
     })
     @PostMapping
-    @PreAuthorize("hasRole('roles')")
     public ResponseEntity add(@RequestBody PlayerPostDTO playerDTO){
         Player player = playerService.add(playerMapper.playerPostDtoToPlayer(playerDTO));
         URI location = URI.create("api/v1/players/" + player.getId());
@@ -118,7 +117,6 @@ public class PlayerController {
             )
     })
     @PutMapping("{id}")
-    @PreAuthorize("hasRole('roles')")
     public ResponseEntity update(@RequestBody PlayerUpdateDTO playerDTO, @PathVariable Integer id){
         if (id != playerDTO.getId()){
             System.out.println(playerDTO.getId());
@@ -169,7 +167,6 @@ public class PlayerController {
             )
     })
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('roles')")
     public ResponseEntity delete(@PathVariable Integer id){
         playerService.deleteById(id);
         return ResponseEntity.noContent().build();

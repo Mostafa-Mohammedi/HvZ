@@ -84,7 +84,6 @@ public class MissionController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('roles')")
     @Operation(summary = "Adds a new mission")
     @ApiResponses( value = {
             @ApiResponse(
@@ -158,8 +157,6 @@ public class MissionController {
             )
     })
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('roles')")
-
     public ResponseEntity delete(@PathVariable Integer id){
         missionService.deleteById(id);
         return ResponseEntity.noContent().build();

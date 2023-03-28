@@ -9,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Data
+/**
+ * Chat class is in charge of chat in the game between player
+ */
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,9 @@ public class Chat {
     @ElementCollection
     private List<String> chats;
 
+    /**
+     * Referes for the game id
+     */
     private int gameRef;
 
     @JsonIgnore
