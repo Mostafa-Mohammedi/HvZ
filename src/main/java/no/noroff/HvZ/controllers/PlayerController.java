@@ -16,6 +16,7 @@ import no.noroff.HvZ.services.player.PlayerService;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -145,7 +146,7 @@ public class PlayerController {
             )
     })
     @PutMapping("{id}/checkIn")
-    public ResponseEntity CheckIn(PlayerCheckInDTO playerCheckInDTO, @PathVariable Integer id){
+    public ResponseEntity CheckIn(@RequestBody PlayerCheckInDTO playerCheckInDTO, @PathVariable Integer id){
         playerService.playerCheckIn(playerMapper.playerCheckInDTOtoPlayer(playerCheckInDTO), id);
         return ResponseEntity.noContent().build();
     }
