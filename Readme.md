@@ -6,6 +6,14 @@ The game is built using Java with the Spring framework, along with the Lombok an
 HvZ involves creating games that players can join and play tag in, with options for players to form squads and complete missions. 
 The backend provides API endpoints for handling user and game management, including creating, updating, and deleting games, squads, and kills, as well as retrieving information on players and games.
 
+# Team member 
+
+## Khoi Le 
+## Adam Miron Krason
+## Fatima Yari
+## Mostafa Mohammedi 
+
+
 ## Setup 
 
 The backend is created with Java with Spring framework.
@@ -15,6 +23,15 @@ Library:
 - Lombok
 - JPA
 - Spring security  
+
+## Locally
+
+- First, ensure that you have the correct JDK setup of version 17 or later installed on your system.
+- Clone the project repository to your local machine.
+- Create a new database in Postgresql and name it "HvZ".
+- Set up your Postgresql username and password as "postgresql".
+- Install Keycloak locally and configure it, or use the global configuration provided in the application properties (follow guide for deployment java).
+- Run the application.
 
 ## Classes
 
