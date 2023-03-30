@@ -51,8 +51,8 @@ Library:
 - Delete: request api/v1/ games/{id}/games takes the game id as a parameter
 
 
-## The rest se Swagger Documetation
+## The rest se Swagger Documentation
 
-Check out the Swagger documentation for the APIs [here](https://docker-hvz-container.azurewebsites.net/swagger-ui/index.html).
+## Diagram 
 
-
+![Game.png](Game.png)
